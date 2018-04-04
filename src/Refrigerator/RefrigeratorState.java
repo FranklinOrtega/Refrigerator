@@ -1,8 +1,8 @@
 package Refrigerator;
 
-public abstract class RefigeratorState {
+public abstract class RefrigeratorState {
 	
-	public RefigeratorState() {
+	public RefrigeratorState() {
 		// TODO: declare references to RefigeratorContext (for changing states)
 		// and the gui display (for jlabel modifying)
 	}

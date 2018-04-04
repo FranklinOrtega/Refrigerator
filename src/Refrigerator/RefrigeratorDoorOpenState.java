@@ -1,6 +1,6 @@
 package Refrigerator;
 
-public class RefrigeratorDoorOpenState extends RefigeratorState{
+public class RefrigeratorDoorOpenState extends RefrigeratorState{
 
 	/*
 	 * TODO implement necessary listener classes, register them with the

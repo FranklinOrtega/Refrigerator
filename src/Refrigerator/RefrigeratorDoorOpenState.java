@@ -1,6 +1,6 @@
 package Refrigerator;
 
-public class DoorOpenState extends RefigeratorState{
+public class RefrigeratorDoorOpenState extends RefigeratorState{
 
 	/*
 	 * TODO implement necessary listener classes, register them with the
@@ -10,17 +10,17 @@ public class DoorOpenState extends RefigeratorState{
 	 * Example: implement clockTick event, and add tick process method
 	 */
 	
-	private static DoorOpenState instance;
+	private static RefrigeratorDoorOpenState instance;
 	
 	/**
 	 * Private method to provide singleton instance
 	 */
-	private DoorOpenState() {
+	private RefrigeratorDoorOpenState() {
 	}
 	
-	public static DoorOpenState instance() {
+	public static RefrigeratorDoorOpenState instance() {
 		if (instance == null) {
-			instance = new DoorOpenState();
+			instance = new RefrigeratorDoorOpenState();
 		}
 		return instance;
 	}

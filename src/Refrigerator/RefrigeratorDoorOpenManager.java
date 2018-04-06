@@ -34,5 +34,5 @@ public class RefrigeratorDoorOpenManager {
 		for (int i = 0; i < listeners.length; i++) {
 			((RefrigeratorDoorOpenListener) listeners[i]).doorOpened(event);
 		}
-	}	
+	}
 }

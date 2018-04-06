@@ -1,10 +1,12 @@
 package Refrigerator;
 
 public abstract class RefrigeratorState {
+	protected static RefrigeratorContext context;
+	protected static CoolingUnitDisplay display;
 	
-	public RefrigeratorState() {
-		// TODO: declare references to RefigeratorContext (for changing states)
-		// and the gui display (for jlabel modifying)
+	protected RefrigeratorState() {
+		context = RefrigeratorContext.instance();
+		display = CoolingUnitDisplay.instance();
 	}
 	
 	/**

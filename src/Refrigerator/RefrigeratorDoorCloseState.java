@@ -1,6 +1,7 @@
 package Refrigerator;
 
-public class RefrigeratorDoorCloseState extends RefrigeratorState{
+public class RefrigeratorDoorCloseState extends RefrigeratorState implements
+	RefrigeratorDoorOpenListener {
 
 	/*
 	 * TODO implement necessary listener classes, register them with the
@@ -31,7 +32,8 @@ public class RefrigeratorDoorCloseState extends RefrigeratorState{
 	 */
 	@Override
 	public void run() {
-		
+		RefrigeratorDoorOpenManager.instance().addDoorOpenListener(instance);
+		display.turnRefrigeratorLightOff();
 	}
 	
 	/**
@@ -40,6 +42,11 @@ public class RefrigeratorDoorCloseState extends RefrigeratorState{
 	 */
 	@Override
 	public void leave() {
-		
+		RefrigeratorDoorOpenManager.instance().removeDoorOpenListener(instance);
+	}
+
+	@Override
+	public void doorOpened(RefrigeratorDoorOpenEvent event) {
+		context.changeCurrentState(RefrigeratorDoorOpenState.instance());
 	}
 }

@@ -9,7 +9,10 @@ public class RefrigeratorContext {
 	 * Private constructor to provide singleton instance
 	 */
 	private RefrigeratorContext() {
+		instance = this;
 		coolingUnitDisplay = CoolingUnitDisplay.instance();
+		currentState = RefrigeratorDoorCloseState.instance();
+
 		// TODO: set the initial state to refrigerator door closed
 	}
 	
@@ -20,8 +23,13 @@ public class RefrigeratorContext {
 		return instance;
 	}
 	
+	/**
+	 * lets door closed state be the starting state adds the object as an
+	 * observable for clock
+	 */
 	public void initialize() {
 		// TODO: set the state to door closed state
+		instance.changeCurrentState(RefrigeratorDoorCloseState.instance());
 	}
 	
 	/**

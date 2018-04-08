@@ -15,6 +15,11 @@ public abstract class CoolingUnitDisplay extends Observable{
 		return instance;
 	}
 	
+	/**
+	 * For singleton
+	 * 
+	 * @return the object
+	 */
 	public void initalize() {
 		context.initialize();
 	}

@@ -1,24 +1,30 @@
 package Refrigerator;
 
-public class RefrigeratorContext {
+public class FridgeContext {
 	private static CoolingUnitDisplay coolingUnitDisplay;
-	private RefrigeratorState currentState;
-	private static RefrigeratorContext instance;
+	private FridgeState currentState;
+	private static FridgeContext instance;
+	/*
+	 * This is where the current temperature of the fridge is stored. Whenever the value
+	 * is updated by the FridgeCompressor or FridgeWarming classes, this value is modified.
+	 * Also, this value is fetched by the gui display for updating the temperature
+	 */
+	private int temp;
 	
 	/**
 	 * Private constructor to provide singleton instance
 	 */
-	private RefrigeratorContext() {
+	private FridgeContext() {
 		instance = this;
 		coolingUnitDisplay = CoolingUnitDisplay.instance();
-		currentState = RefrigeratorDoorCloseState.instance();
+		currentState = FridgeDoorCloseState.instance();
 
 		// TODO: set the initial state to refrigerator door closed
 	}
 	
-	public static RefrigeratorContext instance() {
+	public static FridgeContext instance() {
 		if (instance == null) {
-			instance = new RefrigeratorContext();
+			instance = new FridgeContext();
 		}
 		return instance;
 	}
@@ -29,7 +35,7 @@ public class RefrigeratorContext {
 	 */
 	public void initialize() {
 		// TODO: set the state to door closed state
-		instance.changeCurrentState(RefrigeratorDoorCloseState.instance());
+		instance.changeCurrentState(FridgeDoorCloseState.instance());
 	}
 	
 	/**
@@ -37,7 +43,7 @@ public class RefrigeratorContext {
 	 * Called by the active state once a event is triggered to change the state.
 	 * @param nextState the next state to set the refrigerator to
 	 */
-	public void changeCurrentState(RefrigeratorState nextState) {
+	public void changeCurrentState(FridgeState nextState) {
 		currentState.leave();
 		currentState = nextState;
 		nextState.run();
@@ -45,5 +51,13 @@ public class RefrigeratorContext {
 	
 	public CoolingUnitDisplay getDisplay() {
 		return coolingUnitDisplay;
+	}
+	
+	public int getTemp() {
+		return temp;
+	}
+	
+	public void setTemp(int temp) {
+		this.temp = temp;
 	}
 }

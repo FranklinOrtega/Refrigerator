@@ -3,12 +3,14 @@ package Refrigerator;
 import java.util.Observable;
 
 public abstract class CoolingUnitDisplay extends Observable{
-	protected static RefrigeratorContext context;
+	protected static FridgeContext fridgeContext;
+	// TODO: add freezerContext
 	protected static CoolingUnitDisplay instance;
 	
 	protected CoolingUnitDisplay() {
 		instance = this;
-		context = RefrigeratorContext.instance();
+		fridgeContext = FridgeContext.instance();
+		// TODO: initialize Freezer context
 	}
 	
 	public static CoolingUnitDisplay instance() {
@@ -21,22 +23,25 @@ public abstract class CoolingUnitDisplay extends Observable{
 	 * @return the object
 	 */
 	public void initalize() {
-		context.initialize();
+		fridgeContext.initialize();
+		// TODO: initialize Freezer context
 	}
 	
 	/**
 	 * Refrigerator display indicator methods
 	 */
 	
-	public abstract void turnRefrigeratorLightOn();
+	public abstract void turnFridgeLightOn();
 	
-	public abstract void turnRefrigeratorLightOff();
+	public abstract void turnFridgeLightOff();
 	
-	public abstract void setRefrigeratorCooling();
+	public abstract void setFridgeCooling();
 	
-	public abstract void setRefrigeratorIdle();
+	public abstract void setFridgeIdle();
 	
-	public abstract void setRefrigeratorTemp(int temperature);
+	public abstract void setFridgeTemp(int temperature);
+	
+	public abstract int getFridgeTemp();
 	
 	/**
 	 * Freezer display indicator methods
@@ -51,4 +56,6 @@ public abstract class CoolingUnitDisplay extends Observable{
 	public abstract void setFreezerIdle();
 	
 	public abstract void setFreezerTemp(int temperature);
+	
+	public abstract int getFreezerTemp();
 }

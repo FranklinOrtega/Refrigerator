@@ -16,7 +16,7 @@ public class FridgeDoorCloseButton extends GUIRefrigeratorButton {
 	 */
 	@Override
 	public void inform(CoolingUnitDisplay display) {
-		RefrigeratorDoorCloseManager.instance()
-				.processEvent(new RefrigeratorDoorCloseEvent(display));
+		FridgeDoorCloseManager.instance()
+				.processEvent(new FridgeDoorCloseEvent(display));
 	}
 }

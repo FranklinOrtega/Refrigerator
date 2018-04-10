@@ -22,7 +22,7 @@ public class FridgeTempButton extends GUIRefrigeratorButton {
 //	}
 	// Delete this method when other classes are implemented
 	public void inform(CoolingUnitDisplay display) {
-		RefrigeratorDoorCloseManager.instance()
-				.processEvent(new RefrigeratorDoorCloseEvent(display));
+		FridgeDoorCloseManager.instance()
+				.processEvent(new FridgeDoorCloseEvent(display));
 	}
 }

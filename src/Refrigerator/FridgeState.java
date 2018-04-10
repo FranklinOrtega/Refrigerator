@@ -1,11 +1,11 @@
 package Refrigerator;
 
-public abstract class RefrigeratorState {
-	protected static RefrigeratorContext context;
+public abstract class FridgeState {
+	protected static FridgeContext context;
 	protected static CoolingUnitDisplay display;
 	
-	protected RefrigeratorState() {
-		context = RefrigeratorContext.instance();
+	protected FridgeState() {
+		context = FridgeContext.instance();
 		display = CoolingUnitDisplay.instance();
 	}
 	

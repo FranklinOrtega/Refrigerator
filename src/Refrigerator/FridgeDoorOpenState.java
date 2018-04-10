@@ -1,55 +1,53 @@
 package Refrigerator;
 
-/**
-* Represents the state of the refrigerator when the fridge door is open.
-* When the refrigerator has its door opened, the run method of this class 
-* is called. After that, when an event occurs, the handle method is invoked.
-*/
-public class FridgeDoorOpenState extends RefrigeratorState implements
-	RefrigeratorDoorCloseListener {
+public class FridgeDoorOpenState extends FridgeState implements
+	FridgeDoorCloseListener{
+
+	/*
+	 * TODO implement necessary listener classes, register them with the
+	 * listener managers in the run method, and unregister with them in
+	 * the leave method.
+	 * 
+	 * Example: implement clockTick event, and add tick process method
+	 */
+	
 	private static FridgeDoorOpenState instance;
 	
+	/**
+	 * Private method to provide singleton instance
+	 */
 	private FridgeDoorOpenState() {
 	}
 	
-	/**
-	 * returns the instance, Singleton type
-	 * 
-	 * @return this object
-	 */
-	public static FridgeDoorOpenState instance () {
-		if(instance == null) {
-			return instance = new FridgeDoorOpenState();
-		} else {
-			return instance;
+	public static FridgeDoorOpenState instance() {
+		if (instance == null) {
+			instance = new FridgeDoorOpenState();
 		}
+		return instance;
 	}
 	
 	/**
-	 * initialize the state
-	 * 
+	 * Called when the event is registered as active from the RefrigeratorContext.
+	 * Also registers as a listener for with listener manager classes
 	 */
 	@Override
 	public void run() {
-		// Initialize state
 		// ClassNameManager.instance().addMethodNameRequestListener(instance);
-		RefrigeratorDoorCloseManager.instance().addDoorCloseListener(instance);
-		display.turnRefrigeratorLightOn();
+		FridgeDoorCloseManager.instance().addDoorCloseListener(instance);
+		display.turnFridgeLightOn();
 	}
 	
 	/**
-	 * When the Refrigerator leaves from this state, this method is called to
-	 * remove the state as a listener for the appropriate events.
+	 * Called when the event is ended and unregistered from the RefrigeratorContext
+	 * class. Also unregisters with the listener manager classes.
 	 */
 	@Override
 	public void leave() {
-		// Remove states initialized states in the run() method and in the class 
-		RefrigeratorDoorCloseManager.instance().addDoorCloseListener(instance);
+		FridgeDoorCloseManager.instance().addDoorCloseListener(instance);
 	}
 
 	@Override
-	public void doorClosed(RefrigeratorDoorCloseEvent event) {
-		context.changeCurrentState(RefrigeratorDoorCloseState.instance());
+	public void doorClosed(FridgeDoorCloseEvent event) {
+		context.changeCurrentState(FridgeDoorCloseState.instance());
 	}
 }
-

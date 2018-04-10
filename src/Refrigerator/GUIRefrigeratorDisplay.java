@@ -1,8 +1,6 @@
 package Refrigerator;
 
-
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -145,7 +143,8 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	 * Do the initializations to make the context an observer
 	 */
 	private void initialize() {
-		context.initialize();
+		fridgeContext.initialize();
+		// TODO: freezerContext.initialize();
 	}
 
 	/**
@@ -159,36 +158,42 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 
 	@Override
-	public void turnRefrigeratorLightOn() {
+	public void turnFridgeLightOn() {
 		frame.fridgeLight.setText("Fridge Light On");
 	}
 
 
 
 	@Override
-	public void turnRefrigeratorLightOff() {
+	public void turnFridgeLightOff() {
 		frame.fridgeLight.setText("Fridge Light Off");
 	}
 
 
 
 	@Override
-	public void setRefrigeratorCooling() {
+	public void setFridgeCooling() {
 		frame.fridgeState.setText("Fridge Cooling");
 	}
 
 
 
 	@Override
-	public void setRefrigeratorIdle() {
+	public void setFridgeIdle() {
 		frame.fridgeState.setText("Fridge idle");
 	}
 
 
 
 	@Override
-	public void setRefrigeratorTemp(int temperature) {
+	public void setFridgeTemp(int temperature) {
+		fridgeContext.setTemp(temperature);
 		frame.fridgeTemp.setText("Fridge temp " + temperature);
+	}
+	
+	@Override
+	public int getFridgeTemp() {
+		return fridgeContext.getTemp();
 	}
 
 
@@ -223,7 +228,17 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	@Override
 	public void setFreezerTemp(int temperature) {
+		// TODO: Modify freezer context temperature
+		// freezerContext.setTemperature(temperature);
 		frame.freezerTemp.setText("Freezer temp " + temperature);
+	}
+	
+	@Override
+	public int getFreezerTemp() {
+		// TODO: Freezer context not yet added, once added, uncomment line below
+		// freezerContext.getTemperature();
+		// return freezerContext.getTemperature();
+		return 0;
 	}
 
 	/**

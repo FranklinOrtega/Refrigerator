@@ -18,8 +18,6 @@ public class FridgeContext {
 		instance = this;
 		coolingUnitDisplay = CoolingUnitDisplay.instance();
 		currentState = FridgeDoorCloseState.instance();
-
-		// TODO: set the initial state to refrigerator door closed
 	}
 	
 	public static FridgeContext instance() {
@@ -34,7 +32,6 @@ public class FridgeContext {
 	 * observable for clock
 	 */
 	public void initialize() {
-		// TODO: set the state to door closed state
 		instance.changeCurrentState(FridgeDoorCloseState.instance());
 	}
 	

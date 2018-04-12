@@ -1,7 +1,7 @@
 package Refrigerator;
 
 public class FridgeDoorCloseState extends FridgeState implements
-	FridgeDoorOpenListener {
+	FridgeDoorOpenListener, FridgeTimerRanOutListener {
 
 	/*
 	 * TODO implement necessary listener classes, register them with the
@@ -32,10 +32,37 @@ public class FridgeDoorCloseState extends FridgeState implements
 	 */
 	@Override
 	public void run() {
+		//van: display the current temperature -- ensures temperature is displayed immediately as gui opens
+		display.DisplayCurrentFridgeTemp();
+		
+		//setting the context rate to the rate for door closed
+		FridgeContext.instance().setCurrentFridgeRate(
+				FridgeContext.instance().getFridgeRateLossDoorClosed());
+		
+		//set Fridge timer to start at value of rate
+		FridgeTimer.instance().setTimeValue(
+				FridgeContext.instance().getCurrentFridgeRate());
+		
 		FridgeDoorOpenManager.instance().addDoorOpenListener(instance);
+		
+		//adding listener to FridgeTimerRanOut manager
+		FridgeTimerRanOutManager.instance().addFridgeTimerRanOutListener(instance);
 		display.turnFridgeLightOff();
 	}
 	
+	/*Implementation for doorClosed's fridgeTimerRanOut listener function
+	 * When timer runs out, decrement the temperature by one and reset the timer to 
+	 * start at the DoorClosed rate*/
+	@Override
+	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
+		context.setTemp(context.getTemp() + 1);
+		display.DisplayCurrentFridgeTemp();
+		
+		//reset the timer
+		//note that the currentFridgeRate should be same as the rate when the door is closed
+		FridgeTimer.instance().addTimeValue(context.getCurrentFridgeRate());
+	}
+
 	/**
 	 * Called when the event is ended and unregistered from the RefrigeratorContext
 	 * class. Also unregisters with the listener manager classes.
@@ -43,6 +70,7 @@ public class FridgeDoorCloseState extends FridgeState implements
 	@Override
 	public void leave() {
 		FridgeDoorOpenManager.instance().removeDoorOpenListener(instance);
+		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance); //added
 	}
 
 	@Override

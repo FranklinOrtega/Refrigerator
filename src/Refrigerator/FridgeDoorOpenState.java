@@ -1,7 +1,7 @@
 package Refrigerator;
 
 public class FridgeDoorOpenState extends FridgeState implements
-	FridgeDoorCloseListener{
+	FridgeDoorCloseListener, FridgeTimerRanOutListener{
 
 	/*
 	 * TODO implement necessary listener classes, register them with the
@@ -32,7 +32,17 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 */
 	@Override
 	public void run() {
-		// ClassNameManager.instance().addMethodNameRequestListener(instance);
+		//change context's fridge rate to doorOpenLossRate
+		FridgeContext.instance().setCurrentFridgeRate(
+				FridgeContext.instance().getFridgeRateLossDoorOpen());
+		
+		//set timer to the context's updated rate
+		FridgeTimer.instance().setTimeValue(
+				FridgeContext.instance().getCurrentFridgeRate());
+		
+		// Add doorOpenedState to timerRanOut manager 
+		FridgeTimerRanOutManager.instance().addFridgeTimerRanOutListener(instance);
+		
 		FridgeDoorCloseManager.instance().addDoorCloseListener(instance);
 		display.turnFridgeLightOn();
 	}
@@ -43,11 +53,31 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 */
 	@Override
 	public void leave() {
-		FridgeDoorCloseManager.instance().addDoorCloseListener(instance);
+		FridgeDoorCloseManager.instance().addDoorCloseListener(instance); //?doesnt it need to be removed form doorClose manager??
+		//also leave timeRanOut manager
+		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance); 
 	}
 
 	@Override
 	public void doorClosed(FridgeDoorCloseEvent event) {
 		context.changeCurrentState(FridgeDoorCloseState.instance());
 	}
+
+	/*Implementation for doorOpen's fridgeTimerRanOut listener function
+	 * When timer runs out, decrement the temperature by one and reset the timer to 
+	 * start at the DoorOpen rate*/
+	@Override
+	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
+		// TODO Auto-generated method stub
+		context.setTemp(context.getTemp() + 1);
+		display.DisplayCurrentFridgeTemp();
+		
+		//reset the timer
+		//note that the currentFridgeRate should be same as the rate when the door is closed
+		FridgeTimer.instance().addTimeValue(context.getCurrentFridgeRate());
+		
+	}
+	
+	
+	
 }

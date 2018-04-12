@@ -43,6 +43,9 @@ public abstract class CoolingUnitDisplay extends Observable{
 	
 	public abstract int getFridgeTemp();
 	
+	//van: adding method displayCurrentFridgeTemp 
+	public abstract void  DisplayCurrentFridgeTemp();
+	
 	/**
 	 * Freezer display indicator methods
 	 */

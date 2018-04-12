@@ -53,7 +53,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	    private JLabel desiredFreezerTemp = new JLabel("Desired freezer temp");
 	    private JLabel status = new JLabel("Status");
 	    private JLabel fridgeLight = new JLabel("Fridge light off");
-	    private JLabel fridgeTemp = new JLabel("				"); // Has no initial value, temp changes constantly
+	    private JLabel fridgeTemp = new JLabel("Temp = 			"); // Has no initial value, temp changes constantly
 	    private JLabel fridgeState = new JLabel("Fridge cooling");
 	    private JLabel freezerLight = new JLabel("Freezer light off");
 	    private JLabel freezerTemp = new JLabel("			"); // Has no initial value, temp changes constantly
@@ -191,6 +191,16 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		frame.fridgeTemp.setText("Fridge temp " + temperature);
 	}
 	
+	
+	/*Van: created and to be used by listener of a state after update tempreture*/
+	@Override
+	public void DisplayCurrentFridgeTemp() {
+		// TODO Auto-generated method stub
+		//rame.timerValue.setText(" " + value);
+		frame.fridgeTemp.setText("Fridge temp " + fridgeContext.getTemp());
+		
+	}
+
 	@Override
 	public int getFridgeTemp() {
 		return fridgeContext.getTemp();

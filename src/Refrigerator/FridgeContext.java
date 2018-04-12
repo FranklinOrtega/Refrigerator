@@ -10,7 +10,7 @@ public class FridgeContext {
 	 * is updated by the FridgeCompressor or FridgeWarming classes, this value is modified.
 	 * Also, this value is fetched by the gui display for updating the temperature
 	 */
-	private int temp = 32;
+	private int temp = 35;
 	
 	/*
 	 * This is where the timer and rate to be used by the fridge system are stored
@@ -25,8 +25,15 @@ public class FridgeContext {
 	private int RoomHigh = 75;
 	private int FridgeRateLossDoorOpen = 1; //warming rate when door is opened
 	private int FridgeRateLossDoorClosed = 10; 
-	private int FridgeCoolRate = 20;
-	private int FridgeCompressorStartDiff = 1;
+	private int FridgeCoolRate = 5;
+	private int FridgeCompressorStartDiff = 5;
+	
+	/*
+	 * This variable is used to immediately compute the threshold temperature for when the compressor
+	 * kicks in. This value is computed immediately as the inital temp + compressorStartDiff
+	 * Must be computed immediately when system starts because the temperature changes dynamically*/
+	private int threshholdTemp = temp + FridgeCompressorStartDiff;
+	
 	
 	/**
 	 * Private constructor to provide singleton instance
@@ -98,6 +105,9 @@ public class FridgeContext {
 		return FridgeCoolRate;
 	}
 
+	public int getFridgeThresholdTemp() {
+		return threshholdTemp;
+	}
 	
 	
 	

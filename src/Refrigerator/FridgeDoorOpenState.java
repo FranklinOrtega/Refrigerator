@@ -1,7 +1,7 @@
 package Refrigerator;
 
 public class FridgeDoorOpenState extends FridgeState implements
-	FridgeDoorCloseListener, FridgeTimerRanOutListener{
+	FridgeDoorCloseListener, FridgeTimerRanOutListener/*, FridgeThresholdReachedListener*/{
 
 	/*
 	 * TODO implement necessary listener classes, register them with the
@@ -32,6 +32,9 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 */
 	@Override
 	public void run() {
+		//compresor should be off
+		display.setFridgeIdle();//FridgeContext.instance().
+		
 		//change context's fridge rate to doorOpenLossRate
 		FridgeContext.instance().setCurrentFridgeRate(
 				FridgeContext.instance().getFridgeRateLossDoorOpen());
@@ -53,9 +56,13 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 */
 	@Override
 	public void leave() {
-		FridgeDoorCloseManager.instance().addDoorCloseListener(instance); //?doesnt it need to be removed form doorClose manager??
+		//leave the doorClose manager
+		FridgeDoorCloseManager.instance().removeDoorOpenListener(instance);//addDoorCloseListener(instance); //?doesnt it need to be removed form doorClose manager??
 		//also leave timeRanOut manager
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance); 
+		
+		//leave the thresholdReachedManager
+		//FridgeThresholdReachedManager.instance().removeFridgeThresholdReached(instance);
 	}
 
 	@Override
@@ -72,11 +79,26 @@ public class FridgeDoorOpenState extends FridgeState implements
 		context.setTemp(context.getTemp() + 1);
 		display.DisplayCurrentFridgeTemp();
 		
+		/*if(context.getTemp() >= context.getFridgeThresholdTemp()) {
+			FridgeThresholdReachedManager.instance().processEvent(
+					new FridgeThresholdReachedEvent(instance));
+			}*/
+			
+		/*else {*/
 		//reset the timer
 		//note that the currentFridgeRate should be same as the rate when the door is closed
 		FridgeTimer.instance().addTimeValue(context.getCurrentFridgeRate());
-		
+		/*}*/
 	}
+
+	/*@Override
+	public void fridgeThresholdReached(FridgeThresholdReachedEvent event) {
+		// TODO Auto-generated method stub
+		//context.changeCurrentState(FridgeCoolingState.instance());
+		
+	}*/
+	
+	
 	
 	
 	

@@ -29,7 +29,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	// Window size and location
 	private void frameLayout() {
-		frame.setSize(500, 350);
+		frame.setSize(600, 350);
 		frame.setLocation(100, 30);
 	}
 

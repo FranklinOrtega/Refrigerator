@@ -6,10 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import javafx.geometry.Insets;
 
 /**
  * Implementation of MicrowaveDisplay. Has no conditionals.
@@ -94,6 +98,10 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			middlePanel.setLayout(new GridLayout(2,2));
 			bottomPanel.setLayout(new GridLayout(4,2));
 			
+			// Button setup
+			
+			//  Initializing private variables with user inputs
+			
 			// Top Panel
 			topPanel.add(roomTemp);
 			topPanel.add(roomTempInput);
@@ -130,10 +138,14 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			getContentPane().add(mainPanel);
 			
 			// Add Action Listeners to Buttons
+			setRoomTempBttn.addActionListener(GUIRefrigeratorDisplay.this);
+			setFridgeTempBttn.addActionListener(GUIRefrigeratorDisplay.this);
+			setFreezerTempBttn.addActionListener(GUIRefrigeratorDisplay.this);
 			fridgeDoorCloser.addActionListener(GUIRefrigeratorDisplay.this);
 			fridgeDoorOpener.addActionListener(GUIRefrigeratorDisplay.this);
+			freezerDoorOpener.addActionListener(GUIRefrigeratorDisplay.this);
+			freezerDoorCloser.addActionListener(GUIRefrigeratorDisplay.this);
 			
-
 			pack();
 			setVisible(true);
 		}
@@ -184,12 +196,33 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
+	@Override
+	public void setRoomTempInput(int temperature) {
+		int low = fridgeContext.getRoomLow();
+		int high = fridgeContext.getRoomHigh();
+		if (temperature >= low && temperature <= high) {
+			fridgeContext.setRoomTemp(temperature);
+		} else {
+			JOptionPane.showMessageDialog(null, temperature 
+					+ " is out of range.\nRoom temperature range is between" + low + " and " + high);
+			frame.roomTempInput.setText("");
+		}
+	}
+
 
 	@Override
 	public void setFridgeTemp(int temperature) {
-		fridgeContext.setTemp(temperature);
-		frame.fridgeTemp.setText("Fridge temp " + temperature);
+		int low = fridgeContext.getFridgeLow();
+		int high = fridgeContext.getFridgeHigh();
+		if (temperature >= low && temperature <= high) {
+			fridgeContext.setTemp(temperature);
+		} else {
+			JOptionPane.showMessageDialog(null, temperature 
+					+ " is out of range.\nTemperature range is between" + low + " and " + high);
+			frame.fridgeTempInput.setText("");
+		}
 	}
+
 	
 	
 	/*Van: created and to be used by listener of a state after update tempreture*/
@@ -200,13 +233,25 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		frame.fridgeTemp.setText("Fridge temp " + fridgeContext.getTemp());
 		
 	}
+	
 
+	@Override
+	public int getRoomTempInput() {
+		return Integer.valueOf(frame.roomTempInput.getText());
+	}
+	
+
+	@Override
+	public int getFridgeTempInput() {
+		return Integer.valueOf(frame.fridgeTempInput.getText());
+	}
+	
+	
+	
 	@Override
 	public int getFridgeTemp() {
 		return fridgeContext.getTemp();
 	}
-
-
 
 	@Override
 	public void turnFreezerLightOn() {
@@ -235,6 +280,11 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
+	@Override
+	public int getFreezerTempInput() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public void setFreezerTemp(int temperature) {
@@ -260,6 +310,9 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	public static void main(String[] args) {
 		CoolingUnitDisplay display = new GUIRefrigeratorDisplay();
 	}
+
+
+
 
 
 }

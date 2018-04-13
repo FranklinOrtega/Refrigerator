@@ -69,8 +69,9 @@ public class FridgeDoorCloseState extends FridgeState implements
 		
 		//adding listener to ThresholdRreached manager
 		//FridgeThresholdReachedManager.instance().addFridgeThresholdReachedListener(instance);
-		display.turnFridgeLightOff();
+		
 		}
+		display.turnFridgeLightOff();
 	}
 	
 	/*Implementation for doorClosed's fridgeTimerRanOut listener function

@@ -15,14 +15,7 @@ public class RoomTempButton extends GUIRefrigeratorButton {
 	 * Call the context, so it can forward it through the event
 	 */
 	@Override
-	// uncomment this method when other classes are implemented
-//	public void inform(CoolingUnitDisplay display) {
-//		RoomTempManager.instance()
-//				.processEvent(new RoomTempEvent(display));
-//	}
-	// Change this method when other classes are implemented
 	public void inform(CoolingUnitDisplay display) {
-		FridgeDoorCloseManager.instance()
-				.processEvent(new FridgeDoorCloseEvent(display));
+		display.setRoomTempInput(display.getRoomTempInput());
 	}
 }

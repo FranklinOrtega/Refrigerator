@@ -11,18 +11,12 @@ public class FridgeTempButton extends GUIRefrigeratorButton {
 	}
 
 	/**
-	 * Creates a FreezerDoorOpenEvent, so the interested states can get it.
+	 * Creates a FridgeTempEvent, so the interested states can get it.
 	 * Call the context, so it can forward it through the event
 	 */
 	@Override
-	// uncomment this method when other classes are implemented
-//	public void inform(CoolingUnitDisplay display) {
-//		FridgeTempManager.instance()
-//				.processEvent(new FridgeTempEvent(display));
-//	}
-	// Delete this method when other classes are implemented
 	public void inform(CoolingUnitDisplay display) {
-		FridgeDoorCloseManager.instance()
-				.processEvent(new FridgeDoorCloseEvent(display));
+//		int fridgeTemp = display.getFridgeTempInput();
+			display.setFridgeTemp(display.getFridgeTempInput());
 	}
 }

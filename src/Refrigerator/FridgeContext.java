@@ -23,10 +23,25 @@ public class FridgeContext {
 	private int FridgeHigh = 41;
 	private int RoomLow = 50;
 	private int RoomHigh = 75;
+	private int roomTemp = 0; 
 	private int FridgeRateLossDoorOpen = 1; //warming rate when door is opened
 	private int FridgeRateLossDoorClosed = 10; 
 	private int FridgeCoolRate = 5;
 	private int FridgeCompressorStartDiff = 5;
+	
+	
+	public int getRoomTemp() {
+		return roomTemp;
+	}
+
+	public void setRoomTemp(int roomTemp) {
+		if (roomTemp > RoomHigh || roomTemp < RoomLow) {
+			
+		} else {
+			this.roomTemp = roomTemp;
+		}
+	}
+
 	
 	/*
 	 * This variable is used to immediately compute the threshold temperature for when the compressor
@@ -82,6 +97,22 @@ public class FridgeContext {
 		this.temp = temp;
 	}
 	
+	public int getFridgeLow() {
+		return FridgeLow;
+	}
+
+	public int getFridgeHigh() {
+		return FridgeHigh;
+	}
+
+	public int getRoomLow() {
+		return RoomLow;
+	}
+
+	public int getRoomHigh() {
+		return RoomHigh;
+	}
+
 	/* Method to change the ridge rate, based on if door is opened, closed, or compressor is on*/
 	public void setCurrentFridgeRate(int rate) {
 		this.currentFridgeRate = rate;

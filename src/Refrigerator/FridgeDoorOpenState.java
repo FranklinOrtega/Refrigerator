@@ -57,7 +57,7 @@ public class FridgeDoorOpenState extends FridgeState implements
 	@Override
 	public void leave() {
 		//leave the doorClose manager
-		FridgeDoorCloseManager.instance().removeDoorOpenListener(instance);//addDoorCloseListener(instance); //?doesnt it need to be removed form doorClose manager??
+		FridgeDoorCloseManager.instance().removeDoorCloseListener(instance);//addDoorCloseListener(instance); //?doesnt it need to be removed form doorClose manager??
 		//also leave timeRanOut manager
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance); 
 		
@@ -97,9 +97,5 @@ public class FridgeDoorOpenState extends FridgeState implements
 		//context.changeCurrentState(FridgeCoolingState.instance());
 		
 	}*/
-	
-	
-	
-	
 	
 }

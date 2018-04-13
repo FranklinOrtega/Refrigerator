@@ -25,7 +25,7 @@ public class FridgeDoorCloseManager {
 		listenerList.add(FridgeDoorCloseListener.class, listener);
 	}
 	
-	public void removeDoorOpenListener(FridgeDoorCloseListener listener) {
+	public void removeDoorCloseListener(FridgeDoorCloseListener listener) {
 		listenerList.remove(FridgeDoorCloseListener.class, listener);
 	}
 	

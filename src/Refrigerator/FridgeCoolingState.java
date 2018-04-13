@@ -64,7 +64,7 @@ public class FridgeCoolingState extends FridgeState implements FridgeTimerRanOut
 		//Once we leave -- turn off the compressor
 		display.setFreezerIdle();
 		
-		//deregister from managers
+		//unregister from managers
 		FridgeDoorOpenManager.instance().removeDoorOpenListener(instance); 
 		//also leave timeRanOut manager
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance);

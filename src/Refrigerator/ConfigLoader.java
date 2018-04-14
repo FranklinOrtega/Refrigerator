@@ -29,15 +29,16 @@ public class ConfigLoader {
 	public void setFile(String fileName) {
 		this.fileName = fileName;
 		
-		// create the file if it doesn't exist
+		// if the config file doesn't exist, create one with the default values
 		File file = new File(fileName);
 		if (!file.exists()) {
 			infoBox("<html>The config/preferences file for the refrigerator was not"
 					+ " found. The config file should be placed at<br><br><b>"
-					+ file.getAbsolutePath() + "</b><br><br>The program will create an empty"
-					+ " one now.</html>", "Config file not found");
+					+ file.getAbsolutePath() + "</b><br><br>The program will now create a"
+					+ " default one.</html>", "Config file not found");
 			try {
 				file.createNewFile();
+				createDefaultConfig();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -88,9 +89,9 @@ public class ConfigLoader {
 			}
 			
 			// display error message box
-			infoBox("<html>There has been an error while trying to get the value from the "
+			infoBox("<html>There has been an error while trying to get a value from the "
 					+ "configuation file.<br><br>"
-					+ "The value associated with the key in question is not an integer.<br><br>"
+					+ "The value associated with the key is not an integer.<br><br>"
 					+ "Key in Question: <b>" + key + "</b></html>", "Error in loading configuation");
 			return -1; // no valid integer retrieved -- error occurred
 		} catch (IOException e) {
@@ -112,6 +113,26 @@ public class ConfigLoader {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Creates a default config file with the basic settings
+	 */
+	public void createDefaultConfig() {
+		setValue("FridgeLow", "37");
+		setValue("FridgeHigh", "41");
+		setValue("FreezerLow", "-9");
+		setValue("FreezerHigh", "0");
+		setValue("RoomLow", "50");
+		setValue("RoomHigh", "75");
+		setValue("FridgeRateLossDoorClosed", "30");
+		setValue("FridgeRateLossDoorOpen", "2");
+		setValue("FreezerRateLossDoorClosed", "10");
+		setValue("FreezerRateLossDoorOpen", "1");
+		setValue("FridgeCompressorStartDiff", "2");
+		setValue("FreezerCompressorStartDiff", "1");
+		setValue("FridgeCoolRate", "20");
+		setValue("FreezerCoolRate", "30");
 	}
 	
 	/**

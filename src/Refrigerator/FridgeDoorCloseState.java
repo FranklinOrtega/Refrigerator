@@ -33,7 +33,7 @@ public class FridgeDoorCloseState extends FridgeState implements
 	@Override
 	public void run() {
 		//van: display the current temperature -- ensures temperature is displayed immediately as gui opens
-		display.DisplayCurrentFridgeTemp();
+		display.updateCurrentFridgeTemp();
 		
 		/*Immediately check if the current fridge temp is >= threshold, then swtich to compressor state*/
 		//Note - this may not work!! Dont know the exact structure to implement this
@@ -80,7 +80,7 @@ public class FridgeDoorCloseState extends FridgeState implements
 	@Override
 	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
 		context.setTemp(context.getTemp() + 1);
-		display.DisplayCurrentFridgeTemp();
+		display.updateCurrentFridgeTemp();
 		
 		//Note - this may not work!! Dont know the exact structure to implement this
 		//if the temperature we set equals or exceeds the threshold, change the state to cooling

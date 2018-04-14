@@ -14,40 +14,26 @@ public class FridgeContext {
 	
 	/*
 	 * This is where the timer and rate to be used by the fridge system are stored
-	 * */
+	 */
 	//private int fridgeTimer = 0;
 	private int currentFridgeRate = 0;
 	
-	//initalizing values based on the file until David implements config file integration
-	private int FridgeLow = 37;
-	private int FridgeHigh = 41;
-	private int RoomLow = 50;
-	private int RoomHigh = 75;
+	//Initializing default values
+	private int fridgeLow = 37;
+	private int fridgeHigh = 41;
+	private int roomLow = 50;
+	private int roomHigh = 75;
 	private int roomTemp = 0; 
-	private int FridgeRateLossDoorOpen = 1; //warming rate when door is opened
-	private int FridgeRateLossDoorClosed = 10; 
-	private int FridgeCoolRate = 5;
-	private int FridgeCompressorStartDiff = 5;
-	
-	
-	public int getRoomTemp() {
-		return roomTemp;
-	}
+	private int fridgeRateLossDoorOpen = 1; //warming rate when door is opened
+	private int fridgeRateLossDoorClosed = 10; 
+	private int fridgeCoolRate = 5;
+	private int fridgeCompressorStartDiff = 5;
 
-	public void setRoomTemp(int roomTemp) {
-		if (roomTemp > RoomHigh || roomTemp < RoomLow) {
-			
-		} else {
-			this.roomTemp = roomTemp;
-		}
-	}
-
-	
 	/*
 	 * This variable is used to immediately compute the threshold temperature for when the compressor
-	 * kicks in. This value is computed immediately as the inital temp + compressorStartDiff
+	 * kicks in. This value is computed immediately as the initial temp + compressorStartDiff
 	 * Must be computed immediately when system starts because the temperature changes dynamically*/
-	private int threshholdTemp = temp + FridgeCompressorStartDiff;
+	private int threshholdTemp = temp + fridgeCompressorStartDiff;
 	
 	
 	/**
@@ -55,6 +41,7 @@ public class FridgeContext {
 	 */
 	private FridgeContext() {
 		instance = this;
+		loadConfigurationFromFile();
 		coolingUnitDisplay = CoolingUnitDisplay.instance();
 		currentState = FridgeDoorCloseState.instance();
 	}
@@ -72,6 +59,18 @@ public class FridgeContext {
 	 */
 	public void initialize() {
 		instance.changeCurrentState(FridgeDoorCloseState.instance());
+	}
+	
+	public void loadConfigurationFromFile() {
+		ConfigLoader loader = new ConfigLoader("properties.config");
+		fridgeLow = loader.getValueAsInt("FridgeLow");
+		fridgeHigh = loader.getValueAsInt("FridgeHigh");
+		roomLow = loader.getValueAsInt("RoomLow");
+		roomHigh = loader.getValueAsInt("RoomHigh");
+		fridgeRateLossDoorClosed = loader.getValueAsInt("FridgeRateLossDoorClosed");
+		fridgeRateLossDoorOpen = loader.getValueAsInt("FridgeRateLossDoorOpen");
+		fridgeCompressorStartDiff = loader.getValueAsInt("FridgeCompressorStartDiff");
+		fridgeCoolRate = loader.getValueAsInt("FridgeCoolRate");
 	}
 	
 	/**
@@ -98,19 +97,19 @@ public class FridgeContext {
 	}
 	
 	public int getFridgeLow() {
-		return FridgeLow;
+		return fridgeLow;
 	}
 
 	public int getFridgeHigh() {
-		return FridgeHigh;
+		return fridgeHigh;
 	}
 
 	public int getRoomLow() {
-		return RoomLow;
+		return roomLow;
 	}
 
 	public int getRoomHigh() {
-		return RoomHigh;
+		return roomHigh;
 	}
 
 	/* Method to change the ridge rate, based on if door is opened, closed, or compressor is on*/
@@ -125,22 +124,34 @@ public class FridgeContext {
 
 	/*Methods for getting the various fridge rates - used when changing states */
 	public int getFridgeRateLossDoorOpen() {
-		return FridgeRateLossDoorOpen;
+		return fridgeRateLossDoorOpen;
 	}
 
 	public int getFridgeRateLossDoorClosed() {
-		return FridgeRateLossDoorClosed;
+		return fridgeRateLossDoorClosed;
 	}
 	
 	public int getFridgeCoolRate() {
-		return FridgeCoolRate;
+		return fridgeCoolRate;
 	}
 
 	public int getFridgeThresholdTemp() {
 		return threshholdTemp;
 	}
 	
-	
+	public int getRoomTemp() {
+		return roomTemp;
+	}
+
+	public boolean setRoomTemp(int roomTemp) {
+		if (roomTemp > roomHigh || roomTemp < roomLow) {
+			// set room temp is outside of the configuration settings
+			return false;
+		} else {
+			this.roomTemp = roomTemp;
+			return true;
+		}
+	}
 	
 	
 }

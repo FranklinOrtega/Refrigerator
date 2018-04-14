@@ -30,7 +30,7 @@ public class FridgeCoolingState extends FridgeState implements FridgeTimerRanOut
 	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
 		//Subtract from the timer
 		context.setTemp(context.getTemp() - 1);
-		display.DisplayCurrentFridgeTemp();
+		display.updateCurrentFridgeTemp();
 			
 		//reset the timer
 		//note that the currentFridgeRate should be same as the rate when the door is closed

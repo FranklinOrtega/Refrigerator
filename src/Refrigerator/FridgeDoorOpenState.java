@@ -77,7 +77,7 @@ public class FridgeDoorOpenState extends FridgeState implements
 	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
 		// TODO Auto-generated method stub
 		context.setTemp(context.getTemp() + 1);
-		display.DisplayCurrentFridgeTemp();
+		display.updateCurrentFridgeTemp();
 		
 		/*if(context.getTemp() >= context.getFridgeThresholdTemp()) {
 			FridgeThresholdReachedManager.instance().processEvent(

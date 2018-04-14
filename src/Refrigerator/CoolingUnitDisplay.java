@@ -43,10 +43,8 @@ public abstract class CoolingUnitDisplay extends Observable{
 	
 	public abstract int getFridgeTemp();
 	
-	
-	
-	//van: adding method displayCurrentFridgeTemp 
-	public abstract void  DisplayCurrentFridgeTemp();
+	//van: adding method updateCurrentFridgeTemp 
+	public abstract void  updateCurrentFridgeTemp();
 	
 	public abstract int getRoomTempInput();
 	

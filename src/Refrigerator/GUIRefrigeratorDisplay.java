@@ -6,17 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import javafx.geometry.Insets;
-
 /**
- * Implementation of MicrowaveDisplay. Has no conditionals.
+ * Implementation of RefrigeratorDisplay. Has no conditionals.
  *
  */
 public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements ActionListener {
@@ -222,16 +219,12 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			frame.fridgeTempInput.setText("");
 		}
 	}
-
 	
 	
-	/*Van: created and to be used by listener of a state after update tempreture*/
+	/*Van: created and to be used by listener of a state after update temperature*/
 	@Override
-	public void DisplayCurrentFridgeTemp() {
-		// TODO Auto-generated method stub
-		//rame.timerValue.setText(" " + value);
+	public void updateCurrentFridgeTemp() {
 		frame.fridgeTemp.setText("Fridge temp " + fridgeContext.getTemp());
-		
 	}
 	
 

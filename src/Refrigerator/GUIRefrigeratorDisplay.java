@@ -200,8 +200,12 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		if (temperature >= low && temperature <= high) {
 			fridgeContext.setRoomTemp(temperature);
 		} else {
-			JOptionPane.showMessageDialog(null, temperature 
-					+ " is out of range.\nRoom temperature range is between" + low + " and " + high);
+			if (temperature == 500) { // 500 is returned when input is invalid
+				JOptionPane.showMessageDialog(null, "Invalid entry please try again.");
+			} else {
+				JOptionPane.showMessageDialog(null, temperature 
+						+ " is out of range.\nRoom temperature range is between " + low + " and " + high);
+			}
 			frame.roomTempInput.setText("");
 		}
 	}
@@ -214,8 +218,12 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		if (temperature >= low && temperature <= high) {
 			fridgeContext.setTemp(temperature);
 		} else {
-			JOptionPane.showMessageDialog(null, temperature 
-					+ " is out of range.\nTemperature range is between" + low + " and " + high);
+			if (temperature == 500) { // 500 is returned when input is invalid
+				JOptionPane.showMessageDialog(null, "Invalid entry please try again.");
+			} else {
+				JOptionPane.showMessageDialog(null, temperature 
+						+ " is out of range.\nFridge temperature range is between " + low + " and " + high);
+			}
 			frame.fridgeTempInput.setText("");
 		}
 	}
@@ -230,13 +238,22 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	@Override
 	public int getRoomTempInput() {
-		return Integer.valueOf(frame.roomTempInput.getText());
+		String roomTempStr = frame.roomTempInput.getText();
+		try {
+			return Integer.valueOf(roomTempStr);
+		} catch (NumberFormatException nfe) {
+			return 500; // Return 500 because room temperature is never set to it
+		}
 	}
 	
-
+	
 	@Override
 	public int getFridgeTempInput() {
-		return Integer.valueOf(frame.fridgeTempInput.getText());
+		try {
+			return Integer.valueOf(frame.fridgeTempInput.getText());
+		} catch (NumberFormatException nfe) {
+			return 500; // Return 500 because fridge is never set to this number.
+		}
 	}
 	
 	

@@ -4,7 +4,7 @@ public class FreezerDoorOpenButton extends GUIRefrigeratorButton {
 	/**
 	 * The button for freezer door open
 	 * 
-	 * @param string
+	 * @param string text of the button
 	 */
 	public FreezerDoorOpenButton(String string) {
 		super(string);
@@ -22,7 +22,5 @@ public class FreezerDoorOpenButton extends GUIRefrigeratorButton {
 //	}
 	// Change this method when other classes are implemented
 	public void inform(CoolingUnitDisplay display) {
-		FridgeDoorCloseManager.instance()
-				.processEvent(new FridgeDoorCloseEvent(display));
 	}
 }

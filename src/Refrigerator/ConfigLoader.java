@@ -142,7 +142,7 @@ public class ConfigLoader {
 	 */
 	private void infoBox(String infoMessage, String titleBar) {
 		JLabel label = new JLabel(infoMessage);
-		label.setFont(new Font("serif", Font.PLAIN, 17));
+		label.setFont(new Font("arial", Font.PLAIN, 14));
 		JOptionPane.showMessageDialog(null, label, titleBar, JOptionPane.INFORMATION_MESSAGE);
 	}
 }

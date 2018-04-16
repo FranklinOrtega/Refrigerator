@@ -165,12 +165,10 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
-
 	@Override
 	public void turnFridgeLightOn() {
 		frame.fridgeLight.setText("Fridge Light On");
 	}
-
 
 
 	@Override
@@ -179,12 +177,10 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
-
 	@Override
 	public void setFridgeCooling() {
 		frame.fridgeState.setText("Fridge Cooling");
 	}
-
 
 
 	@Override
@@ -257,7 +253,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 	
 	
-	
 	@Override
 	public int getFridgeTemp() {
 		return fridgeContext.getTemp();
@@ -267,7 +262,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	public void turnFreezerLightOn() {
 		frame.freezerLight.setText("Freezer Light On");
 	}
-
 
 
 	@Override
@@ -283,7 +277,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
-
 	@Override
 	public void setFreezerIdle() {
 		frame.freezerState.setText("Freezer idle");
@@ -292,8 +285,11 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	@Override
 	public int getFreezerTempInput() {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			return Integer.valueOf(frame.freezerTempInput.getText());
+		} catch (NumberFormatException nfe) {
+			return 500; // Return 500 because fridge is never set to this number.
+		}
 	}
 
 	@Override

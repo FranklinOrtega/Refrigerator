@@ -4,7 +4,7 @@ public class FridgeDoorOpenButton extends GUIRefrigeratorButton {
 		/**
 		 * The button for fridge door open
 		 * 
-		 * @param string
+		 * @param string the text of the button
 		 */
 		public FridgeDoorOpenButton(String string) {
 			super(string);

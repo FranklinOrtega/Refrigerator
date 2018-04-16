@@ -3,14 +3,6 @@ package Refrigerator;
 public class FridgeDoorOpenState extends FridgeState implements
 	FridgeDoorCloseListener, FridgeTimerRanOutListener/*, FridgeThresholdReachedListener*/{
 
-	/*
-	 * TODO implement necessary listener classes, register them with the
-	 * listener managers in the run method, and unregister with them in
-	 * the leave method.
-	 * 
-	 * Example: implement clockTick event, and add tick process method
-	 */
-	
 	private static FridgeDoorOpenState instance;
 	
 	/**
@@ -32,8 +24,9 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 */
 	@Override
 	public void run() {
-		//compresor should be off
-		display.setFridgeIdle();//FridgeContext.instance().
+		//set compressor to idle
+		display.setFridgeIdle();
+		display.turnFridgeLightOn();
 		
 		//change context's fridge rate to doorOpenLossRate
 		FridgeContext.instance().setCurrentFridgeRate(
@@ -43,11 +36,11 @@ public class FridgeDoorOpenState extends FridgeState implements
 		FridgeTimer.instance().setTimeValue(
 				FridgeContext.instance().getCurrentFridgeRate());
 		
-		// Add doorOpenedState to timerRanOut manager 
+		//add doorOpenState to timerRanOut manager 
 		FridgeTimerRanOutManager.instance().addFridgeTimerRanOutListener(instance);
 		
+		//add doorOpenState to doorClose manager
 		FridgeDoorCloseManager.instance().addDoorCloseListener(instance);
-		display.turnFridgeLightOn();
 	}
 	
 	/**
@@ -56,12 +49,16 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 */
 	@Override
 	public void leave() {
+		//turn off the fridge light
+		display.turnFridgeLightOff();
+		
 		//leave the doorClose manager
-		FridgeDoorCloseManager.instance().removeDoorCloseListener(instance);//addDoorCloseListener(instance); //?doesnt it need to be removed form doorClose manager??
-		//also leave timeRanOut manager
+		FridgeDoorCloseManager.instance().removeDoorCloseListener(instance);
+		
+		//leave timeRanOut manager
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance); 
 		
-		//leave the thresholdReachedManager
+		//leave the thresholdReachedManager -- not needed I think
 		//FridgeThresholdReachedManager.instance().removeFridgeThresholdReached(instance);
 	}
 
@@ -75,27 +72,21 @@ public class FridgeDoorOpenState extends FridgeState implements
 	 * start at the DoorOpen rate*/
 	@Override
 	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
-		// TODO Auto-generated method stub
-		context.setTemp(context.getTemp() + 1);
-		display.updateCurrentFridgeTemp();
+		// check if fridge temp is less than the room temp
+		if (context.getTemp() < context.getRoomTemp()) {
+			context.setTemp(context.getTemp() + 1);
+			display.updateCurrentFridgeTemp();
+		}
 		
-		/*if(context.getTemp() >= context.getFridgeThresholdTemp()) {
-			FridgeThresholdReachedManager.instance().processEvent(
-					new FridgeThresholdReachedEvent(instance));
-			}*/
-			
-		/*else {*/
 		//reset the timer
-		//note that the currentFridgeRate should be same as the rate when the door is closed
 		FridgeTimer.instance().addTimeValue(context.getCurrentFridgeRate());
-		/*}*/
 	}
 
+	// Not needed I think
 	/*@Override
 	public void fridgeThresholdReached(FridgeThresholdReachedEvent event) {
 		// TODO Auto-generated method stub
 		//context.changeCurrentState(FridgeCoolingState.instance());
 		
 	}*/
-	
 }

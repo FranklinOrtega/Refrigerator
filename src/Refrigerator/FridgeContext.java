@@ -15,7 +15,6 @@ public class FridgeContext {
 	/*
 	 * This is where the timer and rate to be used by the fridge system are stored
 	 */
-	//private int fridgeTimer = 0;
 	private int currentFridgeRate = 0;
 	
 	//Initializing default values
@@ -23,18 +22,11 @@ public class FridgeContext {
 	private int fridgeHigh = 41;
 	private int roomLow = 50;
 	private int roomHigh = 75;
-	private int roomTemp = 0; 
+	private int roomTemp = 70; //usual room temp (will be changed by gui later)
 	private int fridgeRateLossDoorOpen = 1; //warming rate when door is opened
-	private int fridgeRateLossDoorClosed = 10; 
+	private int fridgeRateLossDoorClosed = 10;
 	private int fridgeCoolRate = 5;
 	private int fridgeCompressorStartDiff = 5;
-
-	/*
-	 * This variable is used to immediately compute the threshold temperature for when the compressor
-	 * kicks in. This value is computed immediately as the initial temp + compressorStartDiff
-	 * Must be computed immediately when system starts because the temperature changes dynamically*/
-	private int threshholdTemp = temp + fridgeCompressorStartDiff;
-	
 	
 	/**
 	 * Private constructor to provide singleton instance
@@ -54,8 +46,7 @@ public class FridgeContext {
 	}
 	
 	/**
-	 * lets door closed state be the starting state adds the object as an
-	 * observable for clock
+	 * Initializes the state of the refrigerator to door closed state
 	 */
 	public void initialize() {
 		instance.changeCurrentState(FridgeDoorCloseState.instance());
@@ -135,8 +126,20 @@ public class FridgeContext {
 		return fridgeCoolRate;
 	}
 
-	public int getFridgeThresholdTemp() {
-		return threshholdTemp;
+	/**
+	 * Gets the upper threshold temperature (temp for when the cooling should kick ON)
+	 * @return the threshold temp
+	 */
+	public int getFridgeUpperThresholdTemp() {
+		return (fridgeHigh + fridgeCompressorStartDiff);
+	}
+	
+	/**
+	 * Gets the lower threshold temperature (temp for when the cooling should kick OFF)
+	 * @return the threshold temp
+	 */
+	public int getFridgeLowerThresholdTemp() {
+		return (fridgeLow + fridgeCompressorStartDiff);
 	}
 	
 	public int getRoomTemp() {
@@ -145,7 +148,7 @@ public class FridgeContext {
 
 	public boolean setRoomTemp(int roomTemp) {
 		if (roomTemp > roomHigh || roomTemp < roomLow) {
-			// set room temp is outside of the configuration settings
+			// new room temp is outside of the configuration settings
 			return false;
 		} else {
 			this.roomTemp = roomTemp;

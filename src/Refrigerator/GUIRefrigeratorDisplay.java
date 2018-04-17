@@ -1,6 +1,7 @@
 package Refrigerator;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,7 +33,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	// Window size and location
 	private void frameLayout() {
-		frame.setSize(600, 350);
+//		frame.setSize(600, 350);
 		frame.setLocation(100, 30);
 	}
 
@@ -85,7 +86,17 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			// Instantiate panels
-			mainPanel = new JPanel();
+//			mainPanel = new JPanel();
+			
+			mainPanel = new JPanel()
+			{
+			    @Override
+			    public Dimension getPreferredSize()
+			    {
+			        return new Dimension(700, 700);
+			    }
+			};
+			
 			topPanel = new JPanel();
 			middlePanel = new JPanel();
 			bottomPanel = new JPanel();

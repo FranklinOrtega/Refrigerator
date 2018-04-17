@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Implementation of RefrigeratorDisplay. Has no conditionals.
@@ -314,11 +316,26 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	 *            not used
 	 */
 	public static void main(String[] args) {
-		CoolingUnitDisplay display = new GUIRefrigeratorDisplay();
+		try {
+			// Set Motif Look & Feel on any platform
+	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+	    } 
+	    catch (UnsupportedLookAndFeelException e) {
+	       // handle exception
+	    }
+	    catch (ClassNotFoundException e) {
+	       // handle exception
+	    }
+	    catch (InstantiationException e) {
+	       // handle exception
+	    }
+	    catch (IllegalAccessException e) {
+	       // handle exception
+	    }
+	
+
+		CoolingUnitDisplay display = new GUIRefrigeratorDisplay(); //Create and show the GUI.
 	}
-
-
-
-
+	
 
 }

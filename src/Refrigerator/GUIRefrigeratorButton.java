@@ -1,5 +1,9 @@
 package Refrigerator;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Insets;
+
 import javax.swing.JButton;
 
 public abstract class GUIRefrigeratorButton extends JButton {
@@ -11,6 +15,7 @@ public abstract class GUIRefrigeratorButton extends JButton {
 		 */
 		public GUIRefrigeratorButton(String string) {
 			super(string);
+			super.setFont(new Font("Arial", Font.PLAIN, 13));
 		}
 
 		/**

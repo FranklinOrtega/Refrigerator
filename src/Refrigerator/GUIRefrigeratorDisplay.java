@@ -1,8 +1,11 @@
 package Refrigerator;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -82,6 +85,10 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		private SimpleDisplay() {
 			super("Refrigerator");
 			
+			// Window size
+			int windowWidth = 700;
+			int windowHeight = 500;
+			
 			// Action for the close button.
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
@@ -93,7 +100,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			    @Override
 			    public Dimension getPreferredSize()
 			    {
-			        return new Dimension(700, 700);
+			        return new Dimension(windowWidth, windowHeight);
 			    }
 			};
 			
@@ -102,13 +109,25 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			bottomPanel = new JPanel();
 			
 			mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-			mainPanel.setLayout(new GridLayout(4, 1)); 	
+			mainPanel.setLayout(new GridLayout(3, 1)); 
+//			new GridLayout(rows, cols, hgap, vgap)
 			
-			topPanel.setLayout(new GridLayout(3,3));
-			middlePanel.setLayout(new GridLayout(2,2));
-			bottomPanel.setLayout(new GridLayout(4,2));
+			topPanel.setLayout(new GridLayout(3,3,40,10));
+			topPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+			
+			middlePanel.setLayout(new GridLayout(2,2,10,10));
+			middlePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, windowWidth/2));
+			
+			bottomPanel.setLayout(new GridLayout(4,2,10,10));
+			bottomPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
+			
+			
 			
 			// Button setup
+			int bttnWidth = 160;
+			int bttnHeight = 36;
+//			setRoomTempBttn.setBounds(0, 0, bttnWidth, bttnHeight);
+			setRoomTempBttn.setMargin(new Insets(35,10,35,10));
 			
 			//  Initializing private variables with user inputs
 			
@@ -328,9 +347,9 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	 */
 	public static void main(String[] args) {
 		try {
-			// Set Motif Look & Feel on any platform
-	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-	    } 
+			// Set Look & Feel on any platform
+			UIManager.setLookAndFeel(
+		            UIManager.getSystemLookAndFeelClassName());} 
 	    catch (UnsupportedLookAndFeelException e) {
 	       // handle exception
 	    }

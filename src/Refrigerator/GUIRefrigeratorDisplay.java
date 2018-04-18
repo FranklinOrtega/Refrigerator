@@ -1,6 +1,7 @@
 package Refrigerator;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * Implementation of RefrigeratorDisplay. Has no conditionals.
@@ -30,7 +33,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	// Window size and location
 	private void frameLayout() {
-		frame.setSize(600, 350);
+//		frame.setSize(600, 350);
 		frame.setLocation(100, 30);
 	}
 
@@ -83,7 +86,17 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			// Instantiate panels
-			mainPanel = new JPanel();
+//			mainPanel = new JPanel();
+			
+			mainPanel = new JPanel()
+			{
+			    @Override
+			    public Dimension getPreferredSize()
+			    {
+			        return new Dimension(700, 700);
+			    }
+			};
+			
 			topPanel = new JPanel();
 			middlePanel = new JPanel();
 			bottomPanel = new JPanel();
@@ -314,11 +327,26 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	 *            not used
 	 */
 	public static void main(String[] args) {
-		CoolingUnitDisplay display = new GUIRefrigeratorDisplay();
+		try {
+			// Set Motif Look & Feel on any platform
+	        UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+	    } 
+	    catch (UnsupportedLookAndFeelException e) {
+	       // handle exception
+	    }
+	    catch (ClassNotFoundException e) {
+	       // handle exception
+	    }
+	    catch (InstantiationException e) {
+	       // handle exception
+	    }
+	    catch (IllegalAccessException e) {
+	       // handle exception
+	    }
+	
+
+		CoolingUnitDisplay display = new GUIRefrigeratorDisplay(); //Create and show the GUI.
 	}
-
-
-
-
+	
 
 }

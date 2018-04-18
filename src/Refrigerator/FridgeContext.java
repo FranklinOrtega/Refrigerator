@@ -5,7 +5,7 @@ package Refrigerator;
  * and FridgeCoolingState based on the event that occurs within the GUIRefridgeratorDisplay,
  * or when the temperature is beyond the threshold
  * 
- * */
+ **/
 public class FridgeContext {
 	private static CoolingUnitDisplay coolingUnitDisplay;
 	private FridgeState currentState;
@@ -16,7 +16,7 @@ public class FridgeContext {
 	 * temp variable: This is where the current temperature of the fridge is stored. Whenever the value
 	 * is updated by the DoorOpen DoorClosed or Cooling states, this value is modified.
 	 * Temp value is also fetched by the gui display for updating the temperature 
-	 * */
+	 */
 	private int temp = 35;
 	private int currentFridgeRate = 0;	
 	private int fridgeLow = 37;
@@ -40,7 +40,7 @@ public class FridgeContext {
 	}
 	
 	/**
-	 * Instance method to inialize fridgeContext object as a singleton*/
+	 * Instance method to initialize fridgeContext object as a singleton*/
 	public static FridgeContext instance() {
 		if (instance == null) {
 			instance = new FridgeContext();
@@ -56,7 +56,8 @@ public class FridgeContext {
 	}
 	
 	/**
-	 * Called to initalize the FridgeContext's variables based on data from config file*/
+	 * Called to initialize the FridgeContext's variables based on data from config file
+	 */
 	public void loadConfigurationFromFile() {
 		ConfigLoader loader = new ConfigLoader("properties.config");
 		fridgeLow = loader.getValueAsInt("FridgeLow");

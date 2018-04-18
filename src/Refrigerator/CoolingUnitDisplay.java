@@ -71,4 +71,6 @@ public abstract class CoolingUnitDisplay{
 	public abstract void setFreezerTemp(int temperature);
 	
 	public abstract int getFreezerTemp();
+	
+	public abstract void updateCurrentFreezerTemp();
 }

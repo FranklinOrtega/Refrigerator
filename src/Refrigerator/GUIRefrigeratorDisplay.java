@@ -263,6 +263,11 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		frame.fridgeTemp.setText("Fridge temp " + fridgeContext.getTemp());
 	}
 	
+	@Override
+	public void updateCurrentFreezerTemp() {
+		// TODO: uncomment when implemented
+		//frame.freezerTemp.setText("Freezer temp " + freezerContext.getTemp());
+	}
 
 	@Override
 	public int getRoomTempInput() {

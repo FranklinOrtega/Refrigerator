@@ -1,7 +1,15 @@
 package Refrigerator;
 
+/**
+ * Represents the state of the fridge being open. Extends FridgeState to incorporate
+ * the run and leave methods all states require. Run method is called when a state is initialized,
+ * and the leave method is called when the state is ended. Implements listener classes to register
+ * and receive these events as they occur. This way we can change the state and modify the temperature
+ * as need be. When the fridge door open state is active, the compressor cannot start on. The temperature
+ * equalizes once it reaches the room temp.
+ */
 public class FridgeDoorOpenState extends FridgeState implements
-	FridgeDoorCloseListener, FridgeTimerRanOutListener/*, FridgeThresholdReachedListener*/{
+	FridgeDoorCloseListener, FridgeTimerRanOutListener{
 
 	private static FridgeDoorOpenState instance;
 	
@@ -11,6 +19,10 @@ public class FridgeDoorOpenState extends FridgeState implements
 	private FridgeDoorOpenState() {
 	}
 	
+	/**
+	 * Gets the singleton instance
+	 * @return singleton instance
+	 */
 	public static FridgeDoorOpenState instance() {
 		if (instance == null) {
 			instance = new FridgeDoorOpenState();
@@ -57,19 +69,22 @@ public class FridgeDoorOpenState extends FridgeState implements
 		
 		//leave timeRanOut manager
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance); 
-		
-		//leave the thresholdReachedManager -- not needed I think
-		//FridgeThresholdReachedManager.instance().removeFridgeThresholdReached(instance);
 	}
 
+	/**
+	 * Called by the FridgeDoorCloseManager to change the state from door open
+	 * to door closed.
+	 */
 	@Override
 	public void doorClosed(FridgeDoorCloseEvent event) {
 		context.changeCurrentState(FridgeDoorCloseState.instance());
 	}
 
-	/*Implementation for doorOpen's fridgeTimerRanOut listener function
-	 * When timer runs out, decrement the temperature by one and reset the timer to 
-	 * start at the DoorOpen rate*/
+	/**
+	 * Called by the FridgeTimerRanOut manager when the timer has ran out.
+	 * Increments the temp of the fridge if temp has not reached the room temp.
+	 * Resets the timer back to the current rate.
+	 */
 	@Override
 	public void fridgeTimerRanOut(FridgeTimerRanOutEvent event) {
 		// check if fridge temp is less than the room temp
@@ -81,12 +96,5 @@ public class FridgeDoorOpenState extends FridgeState implements
 		//reset the timer
 		FridgeTimer.instance().addTimeValue(context.getCurrentFridgeRate());
 	}
-
-	// Not needed I think
-	/*@Override
-	public void fridgeThresholdReached(FridgeThresholdReachedEvent event) {
-		// TODO Auto-generated method stub
-		//context.changeCurrentState(FridgeCoolingState.instance());
-		
-	}*/
+	
 }

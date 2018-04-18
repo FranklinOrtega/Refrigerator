@@ -1,8 +1,10 @@
 package Refrigerator;
 
-import java.util.Observable;
-
-public abstract class CoolingUnitDisplay extends Observable{
+/**
+ * CoolingUnitDisplay has the basic outline for methods the gui display classes should extend.
+ * It also keeps track of the fridge and freezer context classes as a reference to itself.
+ */
+public abstract class CoolingUnitDisplay{
 	protected static FridgeContext fridgeContext;
 	// TODO: add freezerContext
 	protected static CoolingUnitDisplay instance;
@@ -13,14 +15,15 @@ public abstract class CoolingUnitDisplay extends Observable{
 		// TODO: initialize Freezer context
 	}
 	
+	/**
+	 * Gets the singleton instance
+	 */
 	public static CoolingUnitDisplay instance() {
 		return instance;
 	}
 	
 	/**
-	 * For singleton
-	 * 
-	 * @return the object
+	 * Initializes the fridge and freezer context
 	 */
 	public void initalize() {
 		fridgeContext.initialize();
@@ -43,8 +46,7 @@ public abstract class CoolingUnitDisplay extends Observable{
 	
 	public abstract int getFridgeTemp();
 	
-	//van: adding method updateCurrentFridgeTemp 
-	public abstract void  updateCurrentFridgeTemp();
+	public abstract void updateCurrentFridgeTemp();
 	
 	public abstract int getRoomTempInput();
 	

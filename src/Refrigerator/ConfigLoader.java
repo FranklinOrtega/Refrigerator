@@ -12,6 +12,11 @@ import java.util.Properties;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+/**
+ * ConfigLoader allows the user to get and set key value pairs from the specified
+ * config file. fileName is the name of the config file located in the root directory
+ * of the application.
+ */
 public class ConfigLoader {
 
 	private Properties prop = new Properties();
@@ -116,7 +121,8 @@ public class ConfigLoader {
 	}
 	
 	/**
-	 * Creates a default config file with the basic settings
+	 * Creates a default config file with the default settings
+	 * specified in the project instructions.
 	 */
 	public void createDefaultConfig() {
 		setValue("FridgeLow", "37");

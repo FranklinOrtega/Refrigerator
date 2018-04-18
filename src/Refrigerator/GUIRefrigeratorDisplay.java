@@ -253,6 +253,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 						+ " is out of range.\nFridge temperature range is between " + low + " and " + high);
 			}
 			frame.fridgeTempInput.setText("");
+			updateCurrentFridgeTemp();
 		}
 	}
 	

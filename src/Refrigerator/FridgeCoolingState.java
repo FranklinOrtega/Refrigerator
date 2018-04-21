@@ -51,7 +51,7 @@ public class FridgeCoolingState extends FridgeState implements
 		//leave timeRanOut manager
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance);
 		//leave fridgeThresholdReached manager
-		FridgeThresholdReachedManager.instance().removeFridgeThresholdReached(instance);
+		FridgeThresholdReachedManager.instance().removeFridgeThresholdReachedListener(instance);
 	}
 
 	@Override

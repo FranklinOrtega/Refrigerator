@@ -83,7 +83,7 @@ public class FridgeDoorCloseState extends FridgeState implements
 	public void leave() {
 		FridgeDoorOpenManager.instance().removeDoorOpenListener(instance);
 		FridgeTimerRanOutManager.instance().removeFridgeTimerRanOut(instance);
-		FridgeThresholdReachedManager.instance().removeFridgeThresholdReached(instance);
+		FridgeThresholdReachedManager.instance().removeFridgeThresholdReachedListener(instance);
 	}
 	
 	/**

@@ -43,7 +43,7 @@ public class FridgeThresholdReachedManager {
 	 * Is called when a state transitions to another one, and calls its leave()
 	 * method
 	 * */
-	public void removeFridgeThresholdReached(FridgeThresholdReachedListener listener) {
+	public void removeFridgeThresholdReachedListener(FridgeThresholdReachedListener listener) {
 		listenerList.remove(FridgeThresholdReachedListener.class, listener);
 	}
 	

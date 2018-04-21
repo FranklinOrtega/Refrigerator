@@ -30,7 +30,7 @@ public class FreezerThresholdReachedManager {
 	}
 	
 	/**
-	 * Called to register a listener to the FridgeThresholdReachedManager.
+	 * Called to register a listener to the FreezerThresholdReachedManager.
 	 * Is called when state is 'initialized' when it calls its run() method 
 	 * */
 	public void addFreezerThresholdReachedListener(FreezerThresholdReachedListener listener) {
@@ -38,7 +38,7 @@ public class FreezerThresholdReachedManager {
 	}
 	
 	/**
-	 * Called to unregister a listener to the FridgeThresholdReachedManager.
+	 * Called to unregister a listener to the FreezerThresholdReachedManager.
 	 * Is called when a state transitions to another one, and calls its leave()
 	 * method
 	 * */

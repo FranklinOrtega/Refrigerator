@@ -24,7 +24,7 @@ public class FreezerTimerRanOutManager {
 		listenerList.add(FreezerTimerRanOutListener.class, listener);
 	}
 	
-	public void removeFreezerTimerRanOut(FreezerTimerRanOutListener listener) {
+	public void removeFreezerTimerRanOutListener(FreezerTimerRanOutListener listener) {
 		listenerList.remove(FreezerTimerRanOutListener.class, listener);
 	}
 	

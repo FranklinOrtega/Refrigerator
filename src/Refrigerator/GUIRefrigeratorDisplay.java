@@ -296,6 +296,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	private void initialize() {
 		fridgeContext.initialize();
 		// TODO: freezerContext.initialize();
+		freezerContext.initialize();
 	}
 
 	/**
@@ -374,11 +375,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		frame.fridgeTemp.setText("Fridge temp " + fridgeContext.getTemp());
 	}
 	
-	@Override
-	public void updateCurrentFreezerTemp() {
-		// TODO: uncomment when implemented
-		//frame.freezerTemp.setText("Freezer temp " + freezerContext.getTemp());
-	}
 
 	@Override
 	public int getRoomTempInput() {
@@ -405,7 +401,55 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	public int getFridgeTemp() {
 		return fridgeContext.getTemp();
 	}
+	
+	/* ************ Freezer Implementation **************** */
+	
 
+	@Override
+	public int getFreezerTemp() {
+		// TODO: Freezer context not yet added, once added, uncomment line below
+		 return freezerContext.getTemp();
+	}
+
+	@Override
+	public int getFreezerTempInput() {
+		try {
+			return Integer.valueOf(frame.freezerTempInput.getText());
+		} catch (NumberFormatException nfe) {
+			return 500; // Return 500 because freezer is never set to this number.
+		}
+	}
+	
+
+	@Override
+	public void setFreezerTemp(int temperature) {
+		int low = freezerContext.getFreezerLow();
+		int high = freezerContext.getFreezerHigh();
+		if (temperature >= low && temperature <= high) {
+			freezerContext.setTemp(temperature);
+		} else {
+			if (temperature == 500) { // 500 is returned when input is invalid
+				JOptionPane.showMessageDialog(null, "Invalid entry please try again.");
+			} else {
+				JOptionPane.showMessageDialog(null, temperature 
+						+ " is out of range.\nFreezer temperature range is between " + low + " and " + high);
+			}
+			frame.freezerTempInput.setText("");
+			updateCurrentFreezerTemp();
+		}
+	}
+	
+	@Override
+	public void setFreezerCooling() {
+		frame.freezerState.setText("Freezer cooling");
+	}
+
+
+	@Override
+	public void setFreezerIdle() {
+		frame.freezerState.setText("Freezer idle");
+	}
+	
 	@Override
 	public void turnFreezerLightOn() {
 		frame.freezerLight.setText("Freezer Light On");
@@ -418,45 +462,17 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
-
 	@Override
-	public void setFreezerCooling() {
-		frame.freezerState.setText("Freezer cooling");
-	}
-
-
-	@Override
-	public void setFreezerIdle() {
-		frame.freezerState.setText("Freezer idle");
-	}
-
-
-	@Override
-	public int getFreezerTempInput() {
-		try {
-			return Integer.valueOf(frame.freezerTempInput.getText());
-		} catch (NumberFormatException nfe) {
-			return 500; // Return 500 because fridge is never set to this number.
-		}
-	}
-
-	@Override
-	public void setFreezerTemp(int temperature) {
-		// TODO: Modify freezer context temperature
-		// freezerContext.setTemperature(temperature);
-		frame.freezerTemp.setText("Freezer temp " + temperature);
+	public void updateCurrentFreezerTemp() {
+		// TODO: uncomment when implemented
+		frame.freezerTemp.setText("Freezer temp " + freezerContext.getTemp());
 	}
 	
-	@Override
-	public int getFreezerTemp() {
-		// TODO: Freezer context not yet added, once added, uncomment line below
-		// freezerContext.getTemperature();
-		// return freezerContext.getTemperature();
-		return 0;
-	}
-
+	/* ************ End of Freezer Implementation **************** */
+	
+	
 	/**
-	 * Start the whole show
+	 * Starts the Refrigerator system
 	 * 
 	 * @param args
 	 *            not used

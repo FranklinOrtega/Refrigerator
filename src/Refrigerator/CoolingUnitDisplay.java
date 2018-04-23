@@ -6,13 +6,14 @@ package Refrigerator;
  */
 public abstract class CoolingUnitDisplay{
 	protected static FridgeContext fridgeContext;
-	// TODO: add freezerContext
+	protected static FreezerContext freezerContext;
 	protected static CoolingUnitDisplay instance;
 	
 	protected CoolingUnitDisplay() {
 		instance = this;
 		fridgeContext = FridgeContext.instance();
 		// TODO: initialize Freezer context
+		freezerContext = FreezerContext.instance();
 	}
 	
 	/**
@@ -28,6 +29,7 @@ public abstract class CoolingUnitDisplay{
 	public void initalize() {
 		fridgeContext.initialize();
 		// TODO: initialize Freezer context
+		freezerContext.initialize();
 	}
 	
 	/**
@@ -52,8 +54,6 @@ public abstract class CoolingUnitDisplay{
 	
 	public abstract int getFridgeTempInput();
 	
-	public abstract int getFreezerTempInput();
-	
 	public abstract void setRoomTempInput(int temperature);
 	
 	/**
@@ -71,6 +71,8 @@ public abstract class CoolingUnitDisplay{
 	public abstract void setFreezerTemp(int temperature);
 	
 	public abstract int getFreezerTemp();
+	
+	public abstract int getFreezerTempInput();
 	
 	public abstract void updateCurrentFreezerTemp();
 }

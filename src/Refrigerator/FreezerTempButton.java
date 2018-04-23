@@ -11,18 +11,11 @@ public class FreezerTempButton extends GUIRefrigeratorButton {
 	}
 
 	/**
-	 * Creates a FreezerDoorOpenEvent, so the interested states can get it.
-	 * Call the context, so it can forward it through the event
+	 * Gets the value from the GUI freezer temperature button
+	 * and sets the freezer temperature in the GUI display
 	 */
 	@Override
-	// uncomment this method when other classes are implemented
-//	public void inform(CoolingUnitDisplay display) {
-//		FreezerTempManager.instance()
-//				.processEvent(new FreezerTempEvent(display));
-//	}
-	// Delete this method when other classes are implemented
 	public void inform(CoolingUnitDisplay display) {
-		FridgeDoorCloseManager.instance()
-				.processEvent(new FridgeDoorCloseEvent(display));
+		display.setFreezerTemp(display.getFreezerTempInput());
 	}
 }

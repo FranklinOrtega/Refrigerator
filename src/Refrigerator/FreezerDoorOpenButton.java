@@ -15,12 +15,8 @@ public class FreezerDoorOpenButton extends GUIRefrigeratorButton {
 	 * Call the context, so it can forward it through the event
 	 */
 	@Override
-	// uncomment this method when other classes are implemented
-//	public void inform(CoolingUnitDisplay display) {
-//		FreezerDoorOpenManager.instance()
-//				.processEvent(new FreezerDoorOpenEvent(display));
-//	}
-	// Change this method when other classes are implemented
 	public void inform(CoolingUnitDisplay display) {
+		FreezerDoorOpenManager.instance()
+				.processEvent(new FreezerDoorOpenEvent(display));
 	}
 }

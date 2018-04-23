@@ -2,7 +2,9 @@ package Refrigerator;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -15,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -36,7 +39,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	// Window size and location
 	private void frameLayout() {
-//		frame.setSize(600, 350);
 		frame.setLocation(100, 30);
 	}
 
@@ -93,8 +95,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
 			// Instantiate panels
-//			mainPanel = new JPanel();
-			
 			mainPanel = new JPanel()
 			{
 			    @Override
@@ -110,10 +110,121 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			
 			mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 			mainPanel.setLayout(new GridLayout(3, 1)); 
-//			new GridLayout(rows, cols, hgap, vgap)
 			
+/* ***************** This is the original code ***********************
 			topPanel.setLayout(new GridLayout(3,3,40,10));
 			topPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+			************************************ **/
+			
+			/* **** Testing Code for GridBagLayout Delete if it doesn't work ***** */
+			
+			final boolean shouldFill = true;
+		    final boolean shouldWeightX = true;
+		    final boolean RIGHT_TO_LEFT = false;
+		 
+		        if (RIGHT_TO_LEFT) {
+		            topPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		        }
+		 
+
+//			topPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+		        
+		    topPanel.setLayout(new GridBagLayout());
+		    GridBagConstraints gridBagConstrains = new GridBagConstraints();
+//		    if (shouldFill) {
+//		    //natural height, maximum width
+//		    	gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+//		    }
+//		    
+		    if (shouldWeightX) {
+		    gridBagConstrains.weightx = 0.1;
+		    }
+		    
+		    /* Top Panel Labels */
+		    // Label: Room Temp
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.gridx = 0;
+		    gridBagConstrains.gridy = 0; // First Row
+		    roomTemp.setHorizontalAlignment(SwingConstants.RIGHT);
+		    roomTemp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+		    topPanel.add(roomTemp, gridBagConstrains);
+
+		    // Label: Fridge Temp
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.gridx = 0;
+		    gridBagConstrains.gridy = 1; // Second Row
+		    desiredFridgeTemp.setHorizontalAlignment(SwingConstants.RIGHT);
+		    desiredFridgeTemp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+		    topPanel.add(desiredFridgeTemp, gridBagConstrains);
+
+		    // Label: Freezer Temp
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.gridx = 0;
+		    gridBagConstrains.gridy = 2; // Third Row
+		    desiredFreezerTemp.setHorizontalAlignment(SwingConstants.RIGHT);
+		    desiredFreezerTemp.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+		    topPanel.add(desiredFreezerTemp, gridBagConstrains);
+		    
+		    /* Top Panel Inputs */
+		    // JTextField: Room Temp
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.ipady = 10;  // Sets text field height
+		    gridBagConstrains.gridwidth = 1;
+		    gridBagConstrains.gridx = 1;
+		    gridBagConstrains.gridy = 0; // Third Row
+		    topPanel.add(roomTempInput, gridBagConstrains);
+
+		    // JTextField: Fridge Temp
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.ipady = 10;  // Sets text field height
+		    gridBagConstrains.gridx = 1;
+		    gridBagConstrains.gridy = 1; // First Row
+		    topPanel.add(fridgeTempInput, gridBagConstrains);
+
+		    // JTextField: Freezer Temp
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.ipady = 10;  // Sets text field height
+		    gridBagConstrains.gridwidth = 1;
+		    gridBagConstrains.gridx = 1;
+		    gridBagConstrains.gridy = 2; // Second Row
+		    topPanel.add(freezerTempInput, gridBagConstrains);
+
+		    
+		    /* Top Panel Buttons */
+		    // RoomTempBttn
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.ipady = 10;  // Sets button height
+		    gridBagConstrains.ipadx = 50;
+		    gridBagConstrains.weightx = 0;
+		    gridBagConstrains.gridwidth = 0; 
+		    gridBagConstrains.gridx = 2; // Sets the origin of the button
+		    gridBagConstrains.gridy = 0; // First Row
+		    setRoomTempBttn.setHorizontalAlignment(SwingConstants.LEFT);
+		    topPanel.add(setRoomTempBttn, gridBagConstrains);
+		    
+		    // FridgeTempBttn
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.ipady = 10;  // Sets button height
+		    gridBagConstrains.weightx = 0;
+		    gridBagConstrains.gridwidth = 0; 
+		    gridBagConstrains.gridx = 2; // Sets the origin of the button
+		    gridBagConstrains.gridy = 1; // Second Row
+		    setFridgeTempBttn.setHorizontalAlignment(SwingConstants.LEFT);
+		    topPanel.add(setFridgeTempBttn, gridBagConstrains);
+		    
+		    // FreezerTempBttn
+		    gridBagConstrains.fill = GridBagConstraints.HORIZONTAL;
+		    gridBagConstrains.ipady = 10;  // Sets button height
+		    gridBagConstrains.weightx = 0.0;
+		    gridBagConstrains.gridwidth = 0; // Sets button width according to the gridLayout
+		    gridBagConstrains.gridx = 2; // Sets the origin of the button
+		    gridBagConstrains.gridy = 2; // Third Row
+		    setFreezerTempBttn.setHorizontalAlignment(SwingConstants.LEFT);
+		    topPanel.add(setFreezerTempBttn, gridBagConstrains);
+		 
+		    
+			
+/* ***************** End of Testing Code for GridBagLayout ************** */
 			
 			middlePanel.setLayout(new GridLayout(2,2,10,10));
 			middlePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, windowWidth/2));
@@ -126,21 +237,20 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			// Button setup
 			int bttnWidth = 160;
 			int bttnHeight = 36;
-//			setRoomTempBttn.setBounds(0, 0, bttnWidth, bttnHeight);
-			setRoomTempBttn.setMargin(new Insets(35,10,35,10));
+			//			setRoomTempBttn.setMargin(new Insets(35,10,35,10));
 			
 			//  Initializing private variables with user inputs
 			
 			// Top Panel
-			topPanel.add(roomTemp);
-			topPanel.add(roomTempInput);
-			topPanel.add(setRoomTempBttn);
-			topPanel.add(desiredFridgeTemp);
-			topPanel.add(fridgeTempInput);
-			topPanel.add(setFridgeTempBttn);
-			topPanel.add(desiredFreezerTemp);
-			topPanel.add(freezerTempInput);
-			topPanel.add(setFreezerTempBttn);
+//			topPanel.add(roomTemp);
+//			topPanel.add(roomTempInput);
+//			topPanel.add(setRoomTempBttn);
+//			topPanel.add(desiredFridgeTemp);
+//			topPanel.add(fridgeTempInput);
+//			topPanel.add(setFridgeTempBttn);
+//			topPanel.add(desiredFreezerTemp);
+//			topPanel.add(freezerTempInput);
+//			topPanel.add(setFreezerTempBttn);
 			
 			// Middle Panel, has refrigerator door buttons
 			middlePanel.add(fridgeDoorOpener, BorderLayout.EAST);

@@ -422,11 +422,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	@Override
 	public void setFreezerTemp(int temperature) {
-		JOptionPane.showMessageDialog(null, "Freezer current rate: " + freezerContext.getCurrentFreezerRate()
-			+ "\nFreezer Rate Loss Door Open: " + freezerContext.getFreezerRateLossDoorOpen()
-			+ "\nFreezer Rate Loss Door Closed: " + freezerContext.getFreezerRateLossDoorClosed()
-			+ "\nFreezer Cool Rate: " + freezerContext.getFreezerCoolRate());
-		
 		int low = freezerContext.getFreezerLow();
 		int high = freezerContext.getFreezerHigh();
 		if (temperature >= low && temperature <= high) {

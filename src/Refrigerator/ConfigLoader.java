@@ -115,6 +115,7 @@ public class ConfigLoader {
 			OutputStream outputStream = new FileOutputStream(fileName);
 			prop.setProperty(key, value);
 			prop.store(outputStream, null); // save the property to the file
+			outputStream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

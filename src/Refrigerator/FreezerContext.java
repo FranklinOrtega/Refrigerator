@@ -3,21 +3,21 @@ package Refrigerator;
 /**
  * FreezerContext is the context class that manages the current state of the Freezer
  * in the Refrigerator system. It switches between the FreezerDoorOpenState, FreezerDoorClosedState,
- * and FreezerCoolingState based on the event that occurs within the GUIRefridgeratorDisplay,
- * or when the temperature is beyond the threshold
+ * and FreezerCoolingState based on the events that are triggered by the GUIRefridgeratorDisplay,
+ * or when the temperature is beyond the threshold.
  */
 public class FreezerContext {
 	private static CoolingUnitDisplay coolingUnitDisplay;
 	private FreezerState currentState;
 	private static FreezerContext instance;
 	
-	//Initializing default values
 	/* 
+	 * Initializing default values
 	 * temp variable: This is where the current temperature of the freezer is stored. Whenever the value
 	 * is updated by the DoorOpen DoorClosed or Cooling states, this value is modified.
 	 * Temp value is also fetched by the GUI display for updating the temperature 
 	 */
-	private int temp = -5;
+	private int temp = 70; // fridge temp initializes to the same as the room temp
 	private int currentFreezerRate = 0;
 	private int freezerLow = -9; // This is just rough value
 	private int freezerHigh = 0; // This is just rough value
@@ -40,7 +40,8 @@ public class FreezerContext {
 	}
 	
 	/**
-	 * Instance method to initialize freezerContext object as a singleton*/
+	 * Instance method to initialize freezerContext object as a singleton
+	 */
 	public static FreezerContext instance() {
 		if (instance == null) {
 			instance = new FreezerContext();
@@ -115,7 +116,7 @@ public class FreezerContext {
 		return roomHigh;
 	}
 
-	/* Called to change the ridge rate, based on if door is opened, closed, or compressor is on*/
+	/*Called to change the ridge rate, based on if door is opened, closed, or compressor is on*/
 	public void setCurrentFreezerRate(int rate) {
 		this.currentFreezerRate = rate;
 	}
@@ -160,8 +161,10 @@ public class FreezerContext {
 		return roomTemp;
 	}
 
-	/*Called to set room temperature to temperature given by the GUI
-	 * ensures room temperature is within bounds given by config file*/
+	/*
+	 * Called to set room temperature to temperature given by the GUI
+	 * ensures room temperature is within bounds given by config file
+	 */
 	public boolean setRoomTemp(int roomTemp) {
 		if (roomTemp > roomHigh || roomTemp < roomLow) {
 			// new room temp is outside of the configuration settings

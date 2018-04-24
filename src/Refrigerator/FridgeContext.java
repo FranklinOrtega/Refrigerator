@@ -3,21 +3,21 @@ package Refrigerator;
 /**
  * FridgeContext is the context class that manages the current state of the Fridge
  * in the Refrigerator system. It switches between the FridgeDoorOpenState, FridgeDoorClosedState,
- * and FridgeCoolingState based on the event that occurs within the GUIRefridgeratorDisplay,
- * or when the temperature is beyond the threshold
+ * and FridgeCoolingState based on the events that are triggered by the GUIRefridgeratorDisplay,
+ * or when the temperature is beyond the threshold.
  */
 public class FridgeContext {
 	private static CoolingUnitDisplay coolingUnitDisplay;
 	private FridgeState currentState;
 	private static FridgeContext instance;
 	
-	//Initializing default values
 	/* 
+	 * Initializing default values:
 	 * temp variable: This is where the current temperature of the fridge is stored. Whenever the value
 	 * is updated by the DoorOpen DoorClosed or Cooling states, this value is modified.
 	 * Temp value is also fetched by the gui display for updating the temperature 
 	 */
-	private int temp = 35;
+	private int temp = 70; // fridge temp initializes to the same as the room temp
 	private int currentFridgeRate = 0;	
 	private int fridgeLow = 37;
 	private int fridgeHigh = 41;
@@ -116,7 +116,7 @@ public class FridgeContext {
 		return roomHigh;
 	}
 
-	/* Called to change the ridge rate, based on if door is opened, closed, or compressor is on*/
+	/*Called to change the ridge rate, based on if door is opened, closed, or compressor is on*/
 	public void setCurrentFridgeRate(int rate) {
 		this.currentFridgeRate = rate;
 	}
@@ -161,8 +161,10 @@ public class FridgeContext {
 		return roomTemp;
 	}
 
-	/*Called to set room temperature to temperature given by the GUI
-	 * ensures room temperature is within bounds given by config file*/
+	/*
+	 * Called to set room temperature to temperature given by the GUI
+	 * ensures room temperature is within bounds given by config file
+	 */
 	public boolean setRoomTemp(int roomTemp) {
 		if (roomTemp > roomHigh || roomTemp < roomLow) {
 			// new room temp is outside of the configuration settings

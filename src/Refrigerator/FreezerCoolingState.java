@@ -1,7 +1,7 @@
 package Refrigerator;
 
 public class FreezerCoolingState extends FreezerState implements 
-FreezerTimerRanOutListener, FreezerDoorOpenListener, FreezerThresholdReachedListener {
+	FreezerTimerRanOutListener, FreezerDoorOpenListener, FreezerThresholdReachedListener {
 	
 	private static FreezerCoolingState instance;
 	

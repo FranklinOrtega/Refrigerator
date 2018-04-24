@@ -5,8 +5,7 @@ package Refrigerator;
  * in the Refrigerator system. It switches between the FreezerDoorOpenState, FreezerDoorClosedState,
  * and FreezerCoolingState based on the event that occurs within the GUIRefridgeratorDisplay,
  * or when the temperature is beyond the threshold
- * 
- **/
+ */
 public class FreezerContext {
 	private static CoolingUnitDisplay coolingUnitDisplay;
 	private FreezerState currentState;
@@ -18,17 +17,17 @@ public class FreezerContext {
 	 * is updated by the DoorOpen DoorClosed or Cooling states, this value is modified.
 	 * Temp value is also fetched by the GUI display for updating the temperature 
 	 */
-	private int temp = 0; // Highest freezer temp.
-	private int currentFreezerRate = 0;	
-	private int freezerLow = -5; // This is just rough value
+	private int temp = -5;
+	private int currentFreezerRate = 0;
+	private int freezerLow = -9; // This is just rough value
 	private int freezerHigh = 0; // This is just rough value
 	private int roomLow = 50;
 	private int roomHigh = 75;
 	private int roomTemp = 70; //usual room temp (will be changed by GUI later)
 	private int freezerRateLossDoorOpen = 1; //warming rate when door is opened
 	private int freezerRateLossDoorClosed = 10;
-	private int freezerCoolRate = 5;
-	private int freezerCompressorStartDiff = 5;
+	private int freezerCoolRate = 30;
+	private int freezerCompressorStartDiff = 1;
 	
 	/**
 	 * Private constructor to provide singleton instance
@@ -125,8 +124,7 @@ public class FreezerContext {
 	public int getCurrentFreezerRate() {
 		return currentFreezerRate;
 	}
-
-	/*Getters for the various freezer rates - used when changing states */
+	
 	/*Called to get the warming rate when freezer door is open */
 	public int getFreezerRateLossDoorOpen() {
 		return freezerRateLossDoorOpen;

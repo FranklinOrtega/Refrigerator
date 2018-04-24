@@ -94,7 +94,7 @@ public class FreezerDoorCloseState extends FreezerState implements
 	@Override
 	public void freezerTimerRanOut(FreezerTimerRanOutEvent event) {
 		context.setTemp(context.getTemp() + 1);
-		display.updateCurrentFridgeTemp();
+		display.updateCurrentFreezerTemp();
 		
 		//if the temperature we set equals or exceeds the threshold, change the state to cooling
 		if(context.getTemp() >= context.getFreezerUpperThresholdTemp()) {

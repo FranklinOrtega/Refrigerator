@@ -16,6 +16,6 @@ public class FridgeTempButton extends GUIRefrigeratorButton {
 	 */
 	@Override
 	public void inform(CoolingUnitDisplay display) {
-			display.setFridgeTemp(display.getFridgeTempInput());
+		display.setFridgeTemp(display.getFridgeTempInput());
 	}
 }

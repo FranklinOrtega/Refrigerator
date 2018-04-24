@@ -1,13 +1,11 @@
 package Refrigerator;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -111,7 +109,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 			mainPanel.setLayout(new GridLayout(3, 1)); 
 			
-/* ***************** This is the original code ***********************
+			/* ***************** This is the original code ***********************
 			topPanel.setLayout(new GridLayout(3,3,40,10));
 			topPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 			************************************ **/
@@ -122,9 +120,9 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		    final boolean shouldWeightX = true;
 		    final boolean RIGHT_TO_LEFT = false;
 		 
-		        if (RIGHT_TO_LEFT) {
-		            topPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-		        }
+	        if (RIGHT_TO_LEFT) {
+	            topPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+	        }
 		 
 
 //			topPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
@@ -224,7 +222,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		 
 		    
 			
-/* ***************** End of Testing Code for GridBagLayout ************** */
+		    /* ***************** End of Testing Code for GridBagLayout ************** */
 			
 			middlePanel.setLayout(new GridLayout(2,2,10,10));
 			middlePanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, windowWidth/2));
@@ -237,7 +235,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			// Button setup
 			int bttnWidth = 160;
 			int bttnHeight = 36;
-			//			setRoomTempBttn.setMargin(new Insets(35,10,35,10));
+			// setRoomTempBttn.setMargin(new Insets(35,10,35,10));
 			
 			//  Initializing private variables with user inputs
 			
@@ -295,7 +293,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	 */
 	private void initialize() {
 		fridgeContext.initialize();
-		// TODO: freezerContext.initialize();
 		freezerContext.initialize();
 	}
 
@@ -338,6 +335,7 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 		int high = fridgeContext.getRoomHigh();
 		if (temperature >= low && temperature <= high) {
 			fridgeContext.setRoomTemp(temperature);
+			freezerContext.setRoomTemp(temperature);
 		} else {
 			if (temperature == 500) { // 500 is returned when input is invalid
 				JOptionPane.showMessageDialog(null, "Invalid entry please try again.");
@@ -345,8 +343,8 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 				JOptionPane.showMessageDialog(null, temperature 
 						+ " is out of range.\nRoom temperature range is between " + low + " and " + high);
 			}
-			frame.roomTempInput.setText("");
 		}
+		frame.roomTempInput.setText("");
 	}
 
 
@@ -363,13 +361,15 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 				JOptionPane.showMessageDialog(null, temperature 
 						+ " is out of range.\nFridge temperature range is between " + low + " and " + high);
 			}
-			frame.fridgeTempInput.setText("");
-			updateCurrentFridgeTemp();
 		}
+		frame.fridgeTempInput.setText("");
+		updateCurrentFridgeTemp();
 	}
 	
 	
-	/*Van: created and to be used by listener of a state after update temperature*/
+	/**
+	 * Updates the fridge's current temperature in the gui
+	 */
 	@Override
 	public void updateCurrentFridgeTemp() {
 		frame.fridgeTemp.setText("Fridge temp " + fridgeContext.getTemp());
@@ -407,7 +407,6 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	@Override
 	public int getFreezerTemp() {
-		// TODO: Freezer context not yet added, once added, uncomment line below
 		 return freezerContext.getTemp();
 	}
 
@@ -423,6 +422,11 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 
 	@Override
 	public void setFreezerTemp(int temperature) {
+		JOptionPane.showMessageDialog(null, "Freezer current rate: " + freezerContext.getCurrentFreezerRate()
+			+ "\nFreezer Rate Loss Door Open: " + freezerContext.getFreezerRateLossDoorOpen()
+			+ "\nFreezer Rate Loss Door Closed: " + freezerContext.getFreezerRateLossDoorClosed()
+			+ "\nFreezer Cool Rate: " + freezerContext.getFreezerCoolRate());
+		
 		int low = freezerContext.getFreezerLow();
 		int high = freezerContext.getFreezerHigh();
 		if (temperature >= low && temperature <= high) {
@@ -434,14 +438,14 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 				JOptionPane.showMessageDialog(null, temperature 
 						+ " is out of range.\nFreezer temperature range is between " + low + " and " + high);
 			}
-			frame.freezerTempInput.setText("");
-			updateCurrentFreezerTemp();
 		}
+		frame.freezerTempInput.setText("");
+		updateCurrentFreezerTemp();
 	}
 	
 	@Override
 	public void setFreezerCooling() {
-		frame.freezerState.setText("Freezer cooling");
+		frame.freezerState.setText("Freezer Cooling");
 	}
 
 
@@ -462,9 +466,11 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 	}
 
 
+	/**
+	 * Updates the freezer's current temperature in the gui
+	 */
 	@Override
 	public void updateCurrentFreezerTemp() {
-		// TODO: uncomment when implemented
 		frame.freezerTemp.setText("Freezer temp " + freezerContext.getTemp());
 	}
 	
@@ -482,17 +488,11 @@ public class GUIRefrigeratorDisplay extends CoolingUnitDisplay implements Action
 			// Set Look & Feel on any platform
 			UIManager.setLookAndFeel(
 		            UIManager.getSystemLookAndFeelClassName());} 
-	    catch (UnsupportedLookAndFeelException e) {
-	       // handle exception
-	    }
-	    catch (ClassNotFoundException e) {
-	       // handle exception
-	    }
-	    catch (InstantiationException e) {
-	       // handle exception
-	    }
-	    catch (IllegalAccessException e) {
-	       // handle exception
+	    catch (UnsupportedLookAndFeelException 
+	    		| ClassNotFoundException 
+	    		| InstantiationException 
+	    		| IllegalAccessException e) {
+	    	e.printStackTrace();
 	    }
 	
 

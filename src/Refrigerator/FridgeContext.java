@@ -1,11 +1,11 @@
 package Refrigerator;
+
 /**
  * FridgeContext is the context class that manages the current state of the Fridge
  * in the Refrigerator system. It switches between the FridgeDoorOpenState, FridgeDoorClosedState,
  * and FridgeCoolingState based on the event that occurs within the GUIRefridgeratorDisplay,
  * or when the temperature is beyond the threshold
- * 
- **/
+ */
 public class FridgeContext {
 	private static CoolingUnitDisplay coolingUnitDisplay;
 	private FridgeState currentState;
@@ -40,7 +40,8 @@ public class FridgeContext {
 	}
 	
 	/**
-	 * Instance method to initialize fridgeContext object as a singleton*/
+	 * Instance method to initialize fridgeContext object as a singleton
+	 */
 	public static FridgeContext instance() {
 		if (instance == null) {
 			instance = new FridgeContext();
@@ -125,7 +126,6 @@ public class FridgeContext {
 		return currentFridgeRate;
 	}
 
-	/*Getters for the various fridge rates - used when changing states */
 	/*Called to get the warming rate when fridge door is open */
 	public int getFridgeRateLossDoorOpen() {
 		return fridgeRateLossDoorOpen;
